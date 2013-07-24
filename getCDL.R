@@ -8,7 +8,7 @@
 # of that url.
 
 require("RCurl")
-require("XML")
+#require("XML")
 require("raster")
 
 # returns a list of URLs, one for each year selected
@@ -42,14 +42,25 @@ getCDLURL.bbox <- function(x, years) {
 
   for( year in years ) {
     # make a CDL request for the bounding box    
-    htmlResult <- htmlTreeParse(
-      getURL(
-          sprintf("http://nassgeodata.gmu.edu:8080/axis2/services/CDLService/GetCDLFile?year=%d&bbox=%f,%f,%f,%f",year,x[1,1],x[2,1],x[1,2],x[2,2])
+    htmlResult <- 
+      unlist(
+        strsplit( 
+          getURL(
+            sprintf("http://nassgeodata.gmu.edu:8080/axis2/services/CDLService/GetCDLFile?year=%d&bbox=%f,%f,%f,%f",year,x[1,1],x[2,1],x[1,2],x[2,2])
+          )
+          ,
+        "<(/|)returnURL>"  # regexp to split on
         )
       )
-   
+
+    if( length(htmlResult) != 3 ) {
+      targetGeoTif <- NA 
+    } else {
+      targetGeoTif <- htmlResult[2] 
+    }
+
     # select the value from the html tree that contains the geotif file name 
-    targetGeoTif <- unlist(htmlResult)["children.html.children.body.children.getcdlfileresponse.children.returnurl.children.text.value"]
+    #targetGeoTif <- unlist(htmlResult)["children.html.children.body.children.getcdlfileresponse.children.returnurl.children.text.value"]
    
     # change the name associated with the targetGeoTif 
     names(targetGeoTif) <- year 
@@ -159,6 +170,28 @@ createComparableCDL <- function( filenames, rasterList, baseIndex, ... ) {
 
 
 
+#
+radial <- function(myPoint, myPoints, a.x, a.y) {
+
+  u.x <- myPoint[,1]
+  u.y <- myPoint[,2]
+
+  return ( myPoints[sqrt( ( (x - u.x)/a.x )^2 + ( (y - u.y)/a.y )^2 ) <= 1,] ) 
+
+}
+
+# 
+neighborsByIndex <- function(rasterPoints,index,func,...) {
+
+  rasterPoint <- rasterPoints[index,c('x','y')]
+
+  neighbors <- func( rasterPoint, rasterPoints, ...)  
+
+  return( rasterPoints[(rasterPoints[,'x'] %in% neighbors[,'x']) & (rasterPoints[,'y'] %in% neighbors[,'y']),] )
+
+}
+
+
 
 
 
@@ -166,7 +199,7 @@ createComparableCDL <- function( filenames, rasterList, baseIndex, ... ) {
 # example
 #########################################################################################
 
-
+if(T) {
 ## get bbox
 #      min     max
 myBBox <- matrix( c(
@@ -177,7 +210,7 @@ myBBox <- matrix( c(
 
 
 ## get urls
-urlList <- getCDLURL( myBBox, 1996:2004 )
+urlList <- getCDLURL( myBBox, 2000:2004 )
 
 # example output
 #
@@ -232,29 +265,7 @@ rasterStack <- stack(rasterList)
 
 # turn the raster image into points
 rasterPoints <- rasterToPoints(rasterStack)
-
-
-#
-radial <- function(myPoint, myPoints, a.x, a.y) {
-
-  u.x <- myPoint[,1]
-  u.y <- myPoint[,2]
-
-  return ( myPoints[sqrt( ( (x - u.x)/a.x )^2 + ( (y - u.y)/a.y )^2 ) <= 1,] ) 
-
 }
-
-# 
-neighborsByIndex <- function(rasterPoints,index,func,...) {
-
-  rasterPoint <- rasterPoints[index,c('x','y')]
-
-  neighbors <- func( rasterPoint, rasterPoints, ...)  
-
-  return( rasterPoints[(rasterPoints[,'x'] %in% neighbors[,'x']) & (rasterPoints[,'y'] %in% neighbors[,'y']),] )
-
-}
-
 
 
 
