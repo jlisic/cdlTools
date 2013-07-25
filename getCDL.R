@@ -8,8 +8,12 @@
 # of that url.
 
 require("RCurl")
-#require("XML")
 require("raster")
+
+# include cdlVar name handling, a mapping of variable indexes to names, and 
+# the default projection for the cdl data
+source("cdlVars.R")
+
 
 # returns a list of URLs, one for each year selected
 # if the data is not available or does not exist for a given year
@@ -192,85 +196,107 @@ neighborsByIndex <- function(rasterPoints,index,func,...) {
 }
 
 
+#find counties
+# given a set of points (latitude, longitude) and projection, determine if the points are within a county.
+require('prevR') # I should remove this dependency
+  
+  
+getStateCounty <- function(userPoints, userProj, countyFile, countyDir) {
+  
+  # read in the county shape file
+  countyShape <- readOGR(countyDir, countyFile)
+  
+  # re project the county shape file
+  countyShape.proj <- spTransform(countyShape, CRS(userProj))
+  
+  # get the county centroids
+  centroid.county <- coordinates(countyShape.proj)
+  
+  # find the counties closest to our points for efficent processing
+  xBar <- mean(userPoints[,'x'])
+  yBar <- mean(userPoints[,'y'])
+  
+  countyOrder <- sort( ( centroid.county[,1] - xBar )^2 + (centroid.county[,2] - yBar )^2, index.return=T)$ix 
+  
+  # not iteratively check how many points each county contains
+  # terminate when all points are assigned to counties
+  
+  # create assignment data set
+  assignment <- vector(mode='numeric', length=nrow(userPoints) )
+  
+  for( i in 1:nrow(countyShape) ) {
+  
+    countyIndex <- countyOrder[i]
+    countyPolygon <- countyShape.proj[countyIndex,]
+    assignment[ point.in.SpatialPolygons(userPoints[,'x'], userPoints[,'y'], countyPolygon) ] <- countyIndex
+  
+    if( is.na(table(assignment)['0']) ) break 
+  }
+  
+  # get the unique assignments 
+  targetCounties <- unique( assignment ) 
+  
+  # check if there are any points that haven't been assigned to counties
+  if( 0 %in% targetCounties  ) print("Not all points assigned to counties") 
 
-
-
-#########################################################################################
-# example
-#########################################################################################
-
-if(T) {
-## get bbox
-#      min     max
-myBBox <- matrix( c(
-       130783, 153923,    # longitude AEA
-       2203171, 2217961   # latitude AEA
-       ), byrow=T, nrow=2)
-
-
-
-## get urls
-urlList <- getCDLURL( myBBox, 2000:2004 )
-
-# example output
-#
-#  $`1996`
-#  1996 
-#    NA 
-#  
-#  $`1997`
-#  1997 
-#    NA 
-#  
-#  $`1998`
-#  1998 
-#    NA 
-#  
-#  $`1999`
-#  1999 
-#    NA 
-#  
-#  $`2000`
-#                                                                                     2000 
-#  "http://nassgeodata.gmu.edu/nass_data_cache/CDL_2000_clip_20130720164503_479136358.tif" 
-#  
-#  $`2001`
-#                                                                                     2001 
-#  "http://nassgeodata.gmu.edu/nass_data_cache/CDL_2001_clip_20130720164505_167134732.tif" 
-#  
-#  $`2002`
-#                                                                                      2002 
-#  "http://nassgeodata.gmu.edu/nass_data_cache/CDL_2002_clip_20130720164507_1634276841.tif" 
-#  
-#  $`2003`
-#                                                                                      2003 
-#  "http://nassgeodata.gmu.edu/nass_data_cache/CDL_2003_clip_20130720164508_1393797597.tif" 
-#  
-#  $`2004`
-#                                                                                      2004 
-#  "http://nassgeodata.gmu.edu/nass_data_cache/CDL_2004_clip_20130720164510_1362287265.tif" 
-
-geoTiffs <- download.files(urlList, mode="wb")
-
-# remove missing Tiffs
-geoTiffs$urls      <- geoTiffs$urls[geoTiffs$status == 0]
-geoTiffs$filenames <- geoTiffs$filenames[geoTiffs$status == 0]
-geoTiffs$status    <- geoTiffs$status[geoTiffs$status == 0]
-
-
-
-
-rasterList  <- createComparableCDL( filenames=geoTiffs$filenames, baseIndex=1)
-rasterStack <- stack(rasterList)
-
-# turn the raster image into points
-rasterPoints <- rasterToPoints(rasterStack)
+  return( as.data.frame(countyShape)[targetCounties,] )
 }
 
 
+#fetch census characteristics
 
+# given a list of 
+getCensusEdgeData <- function(states, counties, location) {
 
+  removeFlag <- F
 
+  if( length(states) != length(counties)) {
+    print("states and counties do not have same length")
+    return(NA)
+  }
+
+  # if the location is missing we download from the internet
+  if( missing(location) ) {
+    
+    removeFlag <- T
+    urls <- list()
+    censusFtp <- "ftp://ftp2.census.gov/geo/tiger/TIGER2012/EDGES/" 
+
+    for( i in 1:length(states)) {
+      urls[i] <- sprintf("%stl_2012_%02d%03d_edges.zip",censusFtp,states[i],counties[i]) 
+    }    
+ 
+    # download the files 
+    tiger.zip.files <- download.files( urls ) 
+   
+    # set the file location    
+    location <- tempdir() 
+
+    # unzip and open the files 
+    for( i in 1:length(states)) {
+      if( tiger.zip.files$status[i] == 0) {
+      #unzip the shape file
+        unzip(tiger.zip.files$filenames[[i]],exdir=location) 
+      #delete the temp file
+        unlink(tiger.zip.files$filenames[[i]])
+      }
+    }
+  }
+
+  result <- list()
+  # read files
+  for( i in 1:length(states)) {
+    #read file
+    result[i] <- readOGR(location, sprintf("tl_2012_%02d%03d_edges",states[i],counties[i])) 
+
+    if( removeFlag ) {
+      unlink( sprintf( "%s/tl_2012_%02d%03d_edges.*",location,states[i],counties[i]) )
+    }
+  }
+
+  return(result)
+
+}
 
 
 
