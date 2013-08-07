@@ -7,8 +7,9 @@
 # item of interest from cropscape, the second is to fetch the contents
 # of that url.
 
-require("RCurl")
-require("raster")
+library("RCurl")
+library("raster")
+library("rgdal")
 
 # include cdlVar name handling, a mapping of variable indexes to names, and 
 # the default projection for the cdl data
@@ -49,7 +50,7 @@ getCDLURL.bbox <- function(x, years) {
     htmlResult <- 
       unlist(
         strsplit( 
-          getURL(
+          a <- getURL(
             sprintf("http://nassgeodata.gmu.edu:8080/axis2/services/CDLService/GetCDLFile?year=%d&bbox=%f,%f,%f,%f",year,x[1,1],x[2,1],x[1,2],x[2,2])
           )
           ,

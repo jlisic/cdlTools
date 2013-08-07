@@ -6,19 +6,19 @@ source("getCDL.R")
 # example
 #########################################################################################
 
-if( F ) {
+if( T ) {
 
 ## get bbox
 #      min     max
-#myBBox <- matrix( c(
-#       130783, 153923,    # longitude AEA
-#       2203171, 2217961   # latitude AEA
-#       ), byrow=T, nrow=2)
-
-myBBox <- matrix( c( 
-       -106198, -103027,    # longitude AEA
-       1991871, 1995191    # latitude AEA
+myBBox <- matrix( c(
+       130783, 153923,    # longitude AEA
+       2203171, 2217961   # latitude AEA
        ), byrow=T, nrow=2)
+
+#myBBox <- matrix( c( 
+#       -108198, -103027,    # longitude AEA
+#       1991871, 1995191    # latitude AEA
+#       ), byrow=T, nrow=2)
 
 ## get urls
 urlList <- getCDLURL( myBBox, 2000:2004 )
@@ -76,22 +76,31 @@ rasterStack <- stack(rasterList)
 
 # turn the raster image into points
 rasterPoints <- rasterToPoints(rasterStack,spatial=T)
+#names(rasterPoints) <-  names(geoTiffs$urls)[geoTiffs$status == 0] 
 proj4string(rasterPoints) <- CRS(cdl.proj)
+
 }
 
 
 
-countyFile <- "gz_2010_us_050_00_20m"
-countyDir <-  "E:\\Data\\Tiger\\county"
+
+#countyFile <- "gz_2010_us_050_00_20m"
+#countyDir <-  "E:\\Data\\Tiger\\county"
+
+countyFile <- "tl_2010_us_county10"
+countyDir <- "/Volumes/zstorage/CDL/tiger2010"
 
 countiesOfInterest <- getStateCounty(coordinates(rasterPoints), cdl.proj, countyFile, countyDir)
-edgeData <- getCensusEdgeData( as.numeric(as.character(countiesOfInterest$STATE)), as.numeric(as.character(countiesOfInterest$COUNTY)) )
+
+edgeData <- getCensusEdgeData( as.numeric(as.character(countiesOfInterest$STATEFP10)), as.numeric(as.character(countiesOfInterest$COUNTYFP10)) )
 
 ## finished fetching data
-for( i in 1:length(edgeData) ) {
-  edgeData[[i]] <- spTransform( edgeData[[i]],CRS(cdl.proj) )
-}
 
+edgeData.aea <- list()
+
+for( i in 1:length(edgeData) ) {
+  edgeData.aea[[i]] <- spTransform( edgeData[[i]],CRS(cdl.proj) )
+}
 
 
 
