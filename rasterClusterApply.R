@@ -1,5 +1,7 @@
 # function to apply an arbitrary function to cells in a raster or brick object 
-rasterClusterApply <- function(x, cellFun, needed, filename="", ...) {
+rasterClusterApply <- function(x, cellFun, needed, filename="", printLog, ...) {
+
+  print( printLog )
 
   cl <- getCluster()
   on.exit( returnCluster() )
@@ -8,9 +10,17 @@ rasterClusterApply <- function(x, cellFun, needed, filename="", ...) {
  
   bs <- blockSize(x,minblocks=nodes*4)
   pb <- pbCreate(bs$n)
- 
+
+  print(bs)
+
+
+
+  if( printLog == T)  {
   # the function to be used (simple example)
   clFun <- function(i) {
+
+    sink( file=sprintf("%d.log",i) )
+
     v <- getValues(x, bs$row[i], bs$nrows[i])
     if( is.null( nrow(v) ) ) {
       w <- sapply(v,cellFun)
@@ -22,12 +32,39 @@ rasterClusterApply <- function(x, cellFun, needed, filename="", ...) {
     if( !is.null( nrow(w) ) ) {
       w <- t(w)
     }  
+    
+    sink()
 
     return(w)
   }
-   
+  } 
+
+  if( (printLog == F) | missing(printLog) ) {
+  # the function to be used (simple example)
+  clFun <- function(i) {
+
+    v <- getValues(x, bs$row[i], bs$nrows[i])
+    if( is.null( nrow(v) ) ) {
+      w <- sapply(v,cellFun)
+    } else { 
+      w <- apply(v,1,cellFun)
+    }
+
+    # transpose the end result if it isn't an array
+    if( !is.null( nrow(w) ) ) {
+      w <- t(w)
+    }  
+    
+    return(w)
+  }
+  } 
+
+
+
   funcName <-  as.character(as.list( match.call() )$cellFun) 
- 
+
+  print(funcName)
+
   if( !missing(needed) ) clusterExport(cl, needed )
   clusterExport(cl, list( funcName  ) )
 

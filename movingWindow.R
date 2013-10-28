@@ -1,5 +1,5 @@
 
-incident <- function(x) {
+movingWindow <- function(x) {
    
   n.subsets <- length(subsets)
   n.win <- length(x) - win + 1
@@ -12,21 +12,23 @@ incident <- function(x) {
   result <- c()
 
   for( j in 1:n.subsets ) {
-    inc.max <- vector(mode="integer",length=n.win)
+    inc.sum <- vector(mode="integer",length=n.win)
     
     inc <- x %in% subsets[[j]] 
 
-    inc.max[1] <- max( inc[1:win] )
+    inc.sum[1] <- sum( inc[1:win] )
 
     if( n.win > 1 )  {
       for(k in 2:n.win ) {
-        inc.max[k] <- max( inc.max[ k:(win + k - 1) ] ) 
+        inc.sum[k] <- inc.sum[k-1] - inc[k-1] + inc[k+win -1]
       }
     }
    
     result <- c( result, inc.sum )  
+    
   }
   
   return( result )
+
 }
 

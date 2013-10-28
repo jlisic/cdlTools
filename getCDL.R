@@ -26,8 +26,6 @@ getCDLURL <- function( x , years ) {
   # sanity checks
   if( length(years) == 0 ) return( result )
 
-
-
   # check if we have a bounding box 
   if( is.matrix(x) == T) {
     if( ( nrow(x) == ncol(x) ) & (nrow(x) == 2) ) {
@@ -94,7 +92,7 @@ getCDLURL.fips <- function(x, years) {
       unlist(
         strsplit( 
           a <- getURL(
-            sprintf("http://nassgeodata.gmu.edu:8080/axis2/services/CDLService/GetCDLFile?year=%d&fips=%d",year,x)
+            sprintf("http://nassgeodata.gmu.edu:8080/axis2/services/CDLService/GetCDLFile?year=%d&fips=%02d",year,x)
           )
           ,
         "<(/|)returnURL>"  # regexp to split on
