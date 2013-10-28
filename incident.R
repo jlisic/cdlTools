@@ -20,7 +20,7 @@ incident <- function(x) {
 
     if( n.win > 1 )  {
       for(k in 2:n.win ) {
-        inc.max[k] <- max( inc.max[ k:(win + k - 1) ] ) 
+        inc.max[k] <- max( inc[ k:(win + k - 1) ] ) 
       }
     }
    
