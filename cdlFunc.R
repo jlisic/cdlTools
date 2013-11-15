@@ -17,21 +17,23 @@ cdlToolsDir <- '~/src/cdlTools/'
 source( sprintf('%s/getCDL.R', cdlToolsDir) )
 source( sprintf('%s/cdlVars.R', cdlToolsDir) )
 source( sprintf('%s/incident.R', cdlToolsDir ) )
+source( sprintf('%s/movingWindow.R', cdlToolsDir ) )
 source( sprintf('%s/rasterClusterApply.R', cdlToolsDir) )
 source( sprintf('%s/cdlBrick.R', cdlToolsDir) )
 
 #windowDir <- 'C:/Documents and Settings/lisijo/My Documents/Data/'
 #macDir <- '/Users/jonathanlisic/data/CDL/'
-macDir <- '/mnt/data/CDL/'
-#linuxDir <- '/Rproj/substrata/data/CDL/'
+#macDir <- '/mnt/data/CDL/'
+linuxDir <- '/Rproj/substrata/data/CDL/'
 
-Dir <- macDir
-years <- 2002:2012
-State <- 'Iowa'
-Fips <- 19 
+Dir <- linuxDir
+years <- 2007:2012
+State <- 'California'
+Fips <- 6 
 win <- 5
+funcs <- c('incident','movingWindow')
 
-subsets <- list( cultivated, corn, soybeans, winterWheat, springWheat, durumWheat, cotton, pasture )  
+subsets <- list( cultivated, corn, soybeans, winterWheat, springWheat, durumWheat, cotton, pasture, water, nothing )  
 
 # create a brick
 CDLRaster <- cdlBrick(Dir, Years, State, Fips) 
@@ -41,12 +43,18 @@ writeRaster( CDLRaster, sprintf('%sCDL_%s/CDL_Brick_%02d.grd',Dir,State,Fips),fo
 # set the appropriate directory
 beginCluster()
 
-  raster.cdlIncident <- rasterClusterApply( CDLRaster, cellFun=incident, needed= list('win', 'subsets'), printLog =F, progress="text" )
-#  raster.cdlIncident <- rasterClusterApply( CDLRaster, cellFun=sum, needed= list('win', 'subsets'), progress="text", printLog=T )
+  for(i in 1:length(funcs)) {
+    eval(parse(text=sprintf("func<-%s",funcs[i])))
+
+    #run the code
+    raster.cdlIncident <- rasterClusterApply( CDLRaster, cellFun=movingWindow, needed= list('win', 'subsets'), printLog =F, progress="text" )
+    
+    # write the data out
+    writeRaster( raster.cdlIncident , sprintf('%sCDL_%s/CDL_Brick_%s_%02d.grd',Dir,State,funcs[i],Fips),format="raster", overwrite=TRUE )
+  }
 
 endCluster()
-
-writeRaster( raster.cdlIncident , sprintf('%sCDL_%s/CDL_Brick_Incident_%02d.grd',Dir,State,Fips),format="raster", overwrite=TRUE )
+  
 
 
 

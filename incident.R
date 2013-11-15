@@ -24,7 +24,7 @@ incident <- function(x) {
       }
     }
    
-    result <- c( result, inc.sum )  
+    result <- c( result, inc.max )  
   }
   
   return( result )

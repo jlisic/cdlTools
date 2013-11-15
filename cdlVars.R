@@ -187,6 +187,8 @@ springWheat <- c(23)
 durumWheat  <- c(22,230,234)
 cotton      <- c(232,2,238,239)
 pasture     <- c(171,62,37,38,39)
+water       <- c(83,111)
+nothing     <- 0
 
 #####################################################################
 #  3.0 -  This is a function that given a list of numbers will
