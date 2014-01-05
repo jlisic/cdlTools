@@ -26,10 +26,16 @@ source( sprintf('%s/cdlBrick.R', cdlToolsDir) )
 #macDir <- '/mnt/data/CDL/'
 linuxDir <- '/Rproj/substrata/data/CDL/'
 
+#Dir <- linuxDir
+#years <- 2007:2012
+#State <- 'California'
+#Fips <- 6 
+
 Dir <- linuxDir
-years <- 2007:2012
-State <- 'California'
-Fips <- 6 
+years <- 2008:2012
+State <- 'RhodeIsland'
+Fips <- 44 
+
 win <- 5
 funcs <- c('incident','movingWindow')
 
@@ -47,10 +53,10 @@ beginCluster()
     eval(parse(text=sprintf("func<-%s",funcs[i])))
 
     #run the code
-    raster.cdlIncident <- rasterClusterApply( CDLRaster, cellFun=movingWindow, needed= list('win', 'subsets'), printLog =F, progress="text" )
+    raster.cdlMethod <- rasterClusterApply( CDLRaster, cellFun=movingWindow, needed= list('win', 'subsets'), printLog =F, progress="text" )
     
     # write the data out
-    writeRaster( raster.cdlIncident , sprintf('%sCDL_%s/CDL_Brick_%s_%02d.grd',Dir,State,funcs[i],Fips),format="raster", overwrite=TRUE )
+    writeRaster( raster.cdlMethod , sprintf('%sCDL_%s/CDL_Brick_%s_%02d.grd',Dir,State,funcs[i],Fips),format="raster", overwrite=TRUE )
   }
 
 endCluster()

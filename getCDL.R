@@ -302,7 +302,8 @@ getCensusEdgeData <- function(states, counties, location) {
     
     removeFlag <- T
     urls <- list()
-    censusFtp <- "ftp://ftp2.census.gov/geo/tiger/TIGER2012/EDGES/" 
+    # multiple connections are available via http, so using http now instead of ftp
+    censusFtp <- "http://www2.census.gov/geo/tiger/TIGER2012/EDGES/" 
 
     for( i in 1:length(states)) {
       urls[i] <- sprintf("%stl_2012_%02d%03d_edges.zip",censusFtp,states[i],counties[i]) 

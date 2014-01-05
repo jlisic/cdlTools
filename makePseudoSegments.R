@@ -13,16 +13,16 @@ library(snow)
 
 source('~/src/cdlTools/cdlVars.R')
 
-initYear <- 2007 
-ST    <- 'CA'
-STATE <- 'California'
-FIPS <- 6
+initYear <- 2008
+ST    <- 'RI'
+STATE <- 'RhodeIsland'
+FIPS <- 44 
   
 linuxDir <- '/Rproj/substrata/data/CDL/'
 Dir <- linuxDir
 
 subset.names <- list( "cultivated", "corn", "soybeans", "winterWheat", "springWheat", "durumWheat", "cotton", "pasture","water","nothing")
-funcs[k] <- c('movingWindow','incident')
+funcs <- c('movingWindow','incident')
 
 ############################## Functions #######################################
 
@@ -74,7 +74,8 @@ aggregateCDL <- function(
 
 for(k in 1:length(funcs)) {
 
-  r <- brick( sprintf('%sCDL_%s/CDL_Brick_%s_%02d.grd',Dir,State,funcs[k],Fips),format="raster" )
+  r <- brick( sprintf('%sCDL_%s/CDL_Brick_%s_%02d.grd',Dir,STATE,funcs[k],FIPS),format="raster" )
+  r.raw <- brick( sprintf('%sCDL_%s/CDL_Brick_%02d.grd',Dir,State,Fips),format="raster" )
   
   years <- initYear:(initYear + nlayers(r)/length(subset.names) - 1)
   
@@ -102,7 +103,7 @@ for(k in 1:length(funcs)) {
     } # finish with substs
         
     agg <- cbind(agg,aggregateCDL(  
-        raster( r, layer=1), 
+        raster( r.raw, layer=1), 
         sqMiles = 1,
         getNA=T
       ))
