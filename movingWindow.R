@@ -32,3 +32,18 @@ movingWindow <- function(x) {
 
 }
 
+ma1 <- function(x) {
+ 
+  n.subsets <- length(subsets)
+    
+  result <- c()
+
+  for( j in 1:n.subsets ) {
+    inc <- x %in% subsets[[j]] 
+    result <- c( result, as.numeric(inc) )  
+  }
+  
+  return( result )
+
+}
+
