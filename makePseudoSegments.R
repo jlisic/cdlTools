@@ -13,13 +13,13 @@ library(snow)
 
 source('~/src/cdlTools/cdlVars.R')
 
-initYear <- 2008
-ST    <- 'RI'
-STATE <- 'RhodeIsland'
-FIPS <- 44 
+initYear <- 1997 
+ST    <- 'ND'
+STATE <- 'NorthDakota'
+FIPS <- 38 
   
-linuxDir <- '/Rproj/substrata/data/CDL/'
-Dir <- linuxDir
+macDir <- '/mnt/data/CDL/'
+Dir <- macDir 
 
 subset.names <- list( "cultivated", "corn", "soybeans", "winterWheat", "springWheat", "durumWheat", "cotton", "pasture","water","nothing")
 funcs <- c('movingWindow','incident')
@@ -72,10 +72,13 @@ aggregateCDL <- function(
 
 ############################## Script #######################################
 
+
+if( F ) {
+
 for(k in 1:length(funcs)) {
 
   r <- brick( sprintf('%sCDL_%s/CDL_Brick_%s_%02d.grd',Dir,STATE,funcs[k],FIPS),format="raster" )
-  r.raw <- brick( sprintf('%sCDL_%s/CDL_Brick_%02d.grd',Dir,State,Fips),format="raster" )
+  r.raw <- brick( sprintf('%sCDL_%s/CDL_Brick_%02d.grd',Dir,STATE,FIPS),format="raster" )
   
   years <- initYear:(initYear + nlayers(r)/length(subset.names) - 1)
   
@@ -124,7 +127,58 @@ for(k in 1:length(funcs)) {
   
 }
 
+}
 
+
+# all years
+
+r <- brick( sprintf('%sCDL_%s/CDL_Brick_%02d.grd',Dir,STATE,FIPS),format="raster" )
+
+years <- initYear:(initYear + nlayers(r)/length(subset.names) - 1)
+
+# aggregate over each year
+for( y in 1:length(years)) {
+  year <- years[y]
+  print(sprintf("Working on %s : %d",STATE,year))
+
+  for( l in 1:length(subset.names) ) {
+   
+    # aggregate over each commodity 
+    print(subset.names[l]) 
+    if( l == 1) {
+      agg <- aggregateCDL(  
+        raster( r, layer=y - 1 + l), 
+        sqMiles = 1
+      )
+    } else {
+      agg <- cbind(agg,aggregateCDL(  
+        raster( r, layer=y - 1 + l), 
+        sqMiles = 1
+      ))
+    } 
+
+  } # finish with substs
+      
+  agg <- cbind(agg,aggregateCDL(  
+      raster( r, layer=1), 
+      sqMiles = 1,
+      getNA=T
+    ))
+    
+  agg <- cbind(year,agg,maxPixel,acres,r.coord)
+  colnames(agg) <- c('initYear',subset.names,'NA','maxPixel','acres','x','y')
+
+  if(y == 1) {
+    result <- agg 
+  } else {
+    result <- rbind( agg, result)
+  }
+
+} # finish with years
+
+
+write.csv(result, file = sprintf("%sCDL_Summary/CDL_FAKESEG_SUMMARY_%s_%02d.csv",Dir,"ALL",FIPS))
+  
 
 
 
