@@ -32,9 +32,9 @@ macDir <- '/mnt/data/CDL/'
 #Fips <- 6 
 
 Dir <- macDir
-years <- 2008:2012
-State <- 'RhodeIsland'
-Fips <- 44 
+years <- 1997:2012
+State <- 'NorthDakota'
+Fips <- 38 
 
 win <- 5
 #funcs <- c('incident','movingWindow','ma1')

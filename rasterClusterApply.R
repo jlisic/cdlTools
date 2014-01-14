@@ -7,8 +7,8 @@ rasterClusterApply <- function(x, cellFun, needed, filename="", printLog, ...) {
   on.exit( returnCluster() )
  
   nodes <- length(cl)
- 
-  bs <- blockSize(x,minblocks=nodes*4)
+
+  bs <- blockSize(x,minblocks=nodes*32)
   pb <- pbCreate(bs$n)
 
   print(bs)

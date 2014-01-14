@@ -44,9 +44,21 @@ tifListProp <- function(fileNames) {
 } 
 
 
+
+# function to create ids based on the number of cells
+raster.setId <- function( r ) {
+  # get the r extent
+  r.extent <- extent(r)
+  rx <- raster( r.extent, nrows=nrow(r), ncols=ncol(r) )
+  values(rx) <- 1:ncell(rx)
+  return(rx)
+}
+
+
+
 # function that takes a set of years, and a specific state / fips combination and returns
 # a raster brick, intermediate states are saved in Dir
-cdlBrick  <- function( Dir, Years, State, Fips, nodes) {
+cdlBrick <- function( Dir, years, State, Fips, nodes, extent, setId = NULL) {
     
   # create a directory if it doesn't exist 
   dir.create( file.path(Dir,sprintf('CDL_%s',State)), showWarnings = FALSE ) 
@@ -76,13 +88,9 @@ cdlBrick  <- function( Dir, Years, State, Fips, nodes) {
   
   cdl.properties <- cbind(years,tifListProp( cdl.fileNames ))
   
-  
-  
-  
-  # we want to create a RasterStack so we need matching extents and resolutions, therefore we will resample
+  ## we want to create a RasterStack so we need matching extents and resolutions, therefore we will resample
   
   # figure out which years to resample based on the base year ( worse resolution )
-  
   base.index <- which.max( cdl.properties[,'xres'] )
   
   cdl.resampleList <- as.matrix(apply(cdl.properties, 1, function(x) x != cdl.properties[base.index,]))
@@ -90,8 +98,6 @@ cdlBrick  <- function( Dir, Years, State, Fips, nodes) {
   cdl.resampleList <- cdl.resampleList > 0
   
   print(sprintf("The following years need to be resampled: %s", paste(years[cdl.resampleList],collapse= " ") ))
-  
-  
   
   # start multicore 
   if ( missing( nodes ) ) {
@@ -101,7 +107,6 @@ cdlBrick  <- function( Dir, Years, State, Fips, nodes) {
   } 
 
   cdl.baseRaster <- raster(cdl.fileNames[base.index])
-  
   
   for( index in which(cdl.resampleList ==T) ) {
   
@@ -148,8 +153,6 @@ cdlBrick  <- function( Dir, Years, State, Fips, nodes) {
   # update our properties matrix
   cdl.properties <- cbind(years,tifListProp( cdl.fileNames ))
   
-  
-  
   ## now for each segment we build a brick, and save it 
   
   # first to make a brick to work with
@@ -163,15 +166,32 @@ cdlBrick  <- function( Dir, Years, State, Fips, nodes) {
       a[[i]] <- raster(cdl.fileNames[i])
       projection(a[[i]]) <-proj4string( a[[1]] ) 
     }
-   
+    
+    if( !missing(extent) ) {
+      print( sprintf("  Cropping: %s", cdl.fileNames[i]))
+      a[[i]] <- crop(a[[i]], extent) 
+    }
   }
-  
+
+  # create brick names
+  brick.names <- sprintf("%d",years)
+
+  # create an id if it is specified 
+  if( !is.null(setId)) {
+    a[[i+1]] <- raster.setId( a[[i]] )
+    brick.names <- c(brick.names, setId)
+  }
   
   ### This takes a while so use it sparingly
   print("Creating Brick")
   CDLRaster <- brick( unlist( a ) ) 
 
+  # name layers
+  names(CDLRaster) <- brick.names
+
   return(CDLRaster)
 }
+
+
 
 
