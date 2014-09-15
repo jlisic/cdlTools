@@ -1,5 +1,5 @@
-\name{cdlBrick}
-\alias{cdlBrick}
+\name{cdlList}
+\alias{cdlList}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
   Function to construct a raster list from multiple years of CDL data.
