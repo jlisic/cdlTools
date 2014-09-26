@@ -29,7 +29,7 @@ function( Dir, years, State, Fips) {
  
   
   CDLRaster <- list() 
-  for (i in 1:length(years)) CDLRaster[i] <- raster(cdl.fileNames)
+  for (i in 1:length(years)) CDLRaster[i] <- raster(cdl.fileNames[i])
 
   return(CDLRaster)
 }
