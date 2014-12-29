@@ -39,7 +39,6 @@ poly2RasterSummary <- function(p,r) {
       tmp <- table(values(mask(r.reduced,p[i,])))
     }
 
-    names(out) <- c('area',0:255,1024)
 
     if( length(tmp) > 0 ) out[names(tmp)] <- tmp 
 
@@ -47,6 +46,7 @@ poly2RasterSummary <- function(p,r) {
   }
 
   out.all <- matrix(out.all,ncol=258)
+  colnames(out.all) <- c('area',0:255,1024)
   rownames(out.all) <- out.name
 
   return(out.all)
