@@ -19,6 +19,14 @@ poly2RasterSummary <- function(p,r) {
     isSP <- T 
   }
 
+
+  # change proj if not cdl proj
+  if( proj4string(p) != cdl.proj) {
+    cat("\nProjection of sp object is not cdl.proj, reprojecting\n")
+    p <- spTransform(p,CRS(cdl.proj))
+  }
+
+
   for( i in 1:n ) {
 
     print(i)
@@ -38,8 +46,8 @@ poly2RasterSummary <- function(p,r) {
       out <- c(area,rep(0,257))
       tmp <- table(values(mask(r.reduced,p[i,])))
     }
-
-
+  
+    names(out) <- c('area',0:255,1024)
     if( length(tmp) > 0 ) out[names(tmp)] <- tmp 
 
     out.all <- rbind(out.all,out)

@@ -15,7 +15,7 @@ poly2RasterSummary(p,r)
 \arguments{
   \item{p}{
     An sp SpatialPolygons object or a SpatialPolygonsDataFrame. 
-    The projection must follow cdl.proj.
+    If p is not projected according to cdl.proj, it will be reprojected.
 }
   \item{r}{
    A raster image.
