@@ -1,7 +1,9 @@
 poly2RasterSummary <- function(p,r) {  
 
+  require(rgdal)
+
   # reduce the size of r
-  r.reduced <- mask(crop(r,p),p)
+  r.reduced <- crop(r,p)                                                # bit slow
 
   out.all <- c()
   out.name <- c()
@@ -34,17 +36,30 @@ poly2RasterSummary <- function(p,r) {
     # for spatial polygon data frame
     if( isSPDF) {
       area <- gArea(p[i,],byid=TRUE)
-      out.name <- c( out.name, strsplit( names(area), " " )[[1]][2] )
+      if( intersects ) {
+        out.name <- c( out.name, strsplit( names(area), " " )[[1]][2] )
+      } else {
+        out.name <- c( out.name, names(area) )
+      }
+      
       out <- c(area,rep(0,257))
-      tmp <- table(values(mask(r.reduced,p[i,])))
+
+      startTime <- proc.time()
+      tmp <- table(values( mask( crop(r.reduced,p[i,]) ,p[i,])))
+      print( proc.time() - startTime )
     }
 
     # for spatial polygons  
     if( isSP) {
       area <- gArea(p[i],byid=TRUE)
-      out.name <- c( out.name, strsplit( names(area), " " )[[1]][2] )
+      if( intersects ) {
+        out.name <- c( out.name, strsplit( names(area), " " )[[1]][2] )
+      } else {
+        out.name <- c( out.name, names(area) )
+      }
+
       out <- c(area,rep(0,257))
-      tmp <- table(values(mask(r.reduced,p[i,])))
+      tmp <- table(values(mask(crop(r.reduced,p[i]),p[i])))
     }
   
     names(out) <- c('area',0:255,1024)

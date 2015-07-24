@@ -9,7 +9,7 @@
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
-fips(x, level="state")
+fips(x, level="STATE", to)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -17,7 +17,10 @@ fips(x, level="state")
     Vector of either character or numeric values.  State abreviations are converted to numeric fips.  Numeric fips are converted to State abreviations.  Fips in character format are converted to State aberviations.
   }
   \item{level}{
-  "state" or "county" are supported, it sets evaluation of fips at either the state or county level.  Default is "state".
+  "STATE" or "COUNTY" are supported, it sets evaluation of fips at either the state or county level.  Default is "state".
+  }
+  \item{to}{
+  "FIPS" or "ABBREVIATION" are supported, it sets evaluation of fips at either the state or county level.  Default is "state".
   }
 }
 \details{
