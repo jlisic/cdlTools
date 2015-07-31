@@ -20,7 +20,7 @@ License: \tab What license is it under?\cr
 ~~ functions ~~
 }
 \author{
-Jonathan Lisic 
+Lu Chen and Jonathan Lisic 
 Maintainer: Jonathan Lisic <jonathan.lisic@nass.usda.gov>
 }
 \references{
