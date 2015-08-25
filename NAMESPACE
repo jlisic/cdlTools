@@ -1,2 +1,16 @@
+export(fips)
+export(CDLexists)
+export(cdl.updateNames.data.frame)
+export(cdlVars)
+export(countyFIPS)
+export(stateFIPS)
+export(fips)
+export(getCDL_bbox)
+export(getCDL_fips)
+export(getNames)
+export(stateNames)
+export(USboundary)
+export(UScensusFIPS)
+
 useDynLib(matchCount)
-exportPattern("^[[:alpha:]]+")
+

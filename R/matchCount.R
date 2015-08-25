@@ -1,5 +1,4 @@
 # this is a test program 
-library(raster)
 
 
 matchCount <- function(
@@ -11,8 +10,6 @@ matchCount <- function(
   require(raster)
 
 
-  if( !is.loaded('matchCount.so') ) dyn.load('matchCount.so')
- 
   # get the values 
   x.values <- values(x)
   y.values <- values(y)

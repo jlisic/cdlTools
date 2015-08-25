@@ -7,5 +7,4 @@ Author: Lu Chen and  Jonathan Lisic
 Maintainer: Jonathan Lisic <jonathan.lisic@nass.usda.gov>
 Description: This program will download USDA National Agricultural Statistics Service (NASS) cropscape data for a bounding box, state, or county.  It also provides basic utilities for resampling the data through the raster package.  Utilities for fips, abbreviations, and name conversion our also provided.  Full functionality requires an internet connection, but data sets can be cached for later off-line use.  
 License: BSD 2-clause License
-LazyData: True
  

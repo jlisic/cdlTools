@@ -1,11 +1,10 @@
-library(cdlTools)
 
 
 
 
 # a function that takes a fips code (state) and a year, and returns
 # true if a CDL image exists for this particular pair, otherwise false.
-CDLexists <- function( fips, year) {
+CDLexists <- function( x, year) {
   require(RCurl)
 
   # base url for cdl metadata
@@ -14,7 +13,7 @@ CDLexists <- function( fips, year) {
   # get the full url for the metadata 
   urlName <- sprintf("%s%s%02d.htm",
          urlCheck,
-         tolower(fips(fips)), 
+         tolower(fips(x)), 
          year%% 100 
          )
 
@@ -26,8 +25,8 @@ CDLexists <- function( fips, year) {
 
 #example
 
-CDLexists(1,1997) # returns false
+#CDLexists(1,1997) # returns false
 
-CDLexists(1,2008) # returns false
+#CDLexists(1,2008) # returns false
 
 
