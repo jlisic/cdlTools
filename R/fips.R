@@ -22,8 +22,8 @@ fips <- function( x , to='Abbreviation') {
 
 
     # if it is a full state name convert to  
-    if( x %in% sub(" ","",toupper(as.character(stateNames$State_Name)))) {
-      x <- stateNames[x == sub(" ","",toupper(as.character(stateNames$State_Name))),'State'][1] 
+    if( x %in% sub(" ","",toupper(as.character(stateNames$STATENAME)))) {
+      x <- stateNames[x == sub(" ","",toupper(as.character(stateNames$STATENAME))),'State'][1] 
       x <- as.character(x)
     }
    
@@ -48,8 +48,8 @@ fips <- function( x , to='Abbreviation') {
     x <- toupper(x)
    
     # full state name 
-    if( x %in% sub(" ","",toupper(as.character(stateNames$State_Name)))) {
-      return( as.character(stateNames[x == toupper(sub(" ","",as.character(stateNames$State_Name))),'State'][1]))
+    if( x %in% sub(" ","",toupper(as.character(stateNames$STATENAME)))) {
+      return( as.character(stateNames[x == toupper(sub(" ","",as.character(stateNames$STATENAME))),'STATE'][1]))
     }
 
     # abbreviation to abbreviation
@@ -77,12 +77,12 @@ fips <- function( x , to='Abbreviation') {
     x <- toupper(x)
    
     # full state name 
-    if( x %in% sub(" ","",toupper(as.character(stateNames$State_Name)))) {
-      x <- as.character(stateNames[x == toupper(sub(" ","",as.character(stateNames$State_Name))),'State'][1])
+    if( x %in% sub(" ","",toupper(as.character(stateNames$STATENAME)))) {
+      x <- as.character(stateNames[x == toupper(sub(" ","",as.character(stateNames$STATENAME))),'STATE'][1])
     }
   
     # abbreviation to full state 
-    return( sub(" ","",as.character( stateNames[x == toupper(as.character(stateNames$State)),'State_Name'][1])) )
+    return( sub(" ","",as.character( stateNames[x == toupper(as.character(stateNames$STATE)),'STATENAME'][1])) )
 
   }
  
