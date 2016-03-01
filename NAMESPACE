@@ -7,6 +7,7 @@ export(fips)
 export(getCDL_bbox)
 export(getCDL_fips)
 export(getCensusEdgeData)
+export(matchCount)
 export(getNames)
 
 useDynLib(cdlTools)

@@ -1,5 +1,9 @@
 # this is a test program 
-
+# assumptions
+# m > 0 
+# x > 0 or NA
+# y > 0 or NA
+# m is the max value
 
 matchCount <- function(
   x,
