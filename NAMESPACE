@@ -1,5 +1,6 @@
 export(fips)
 export(CDLexists)
+export(cdl.updateNames)
 export(cdl.updateNames.data.frame)
 export(countyFIPS)
 export(stateFIPS)
@@ -7,8 +8,8 @@ export(fips)
 export(getCDL_bbox)
 export(getCDL_fips)
 export(getCensusEdgeData)
-export(matchCount)
 export(getNames)
+
 
 useDynLib(cdlTools)
 

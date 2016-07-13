@@ -2,11 +2,11 @@
 \alias{winterWheat}
 \docType{data}
 \title{
-  CDL enumeration that contains winter Wheat.
+  CDL enumeration that contains winter sheat.
 %%   ~~ data name/kind ... ~~
 }
 \description{
-%%  ~~ A concise (1-5 lines) description of the dataset. ~~
+Data set of enumerated winter wheat classes.
 }
 \usage{data(winterWheat)}
 \format{
@@ -14,7 +14,14 @@
  num [1:7] 24 26 225 236 238 253 255
 }
 \details{
-%%  ~~ If necessary, more details than the __description__ above ~~
+  The winter wheat enumeration contains:
+  24 - Winter wheat.
+  26 - Double crop, winter wheat and soybeans.
+  225 - Double crop, winter wheat and corn. 
+  236 - Double crop, winter wheat and sorghum.
+  238 - Double crop, winter wheat and cotton.
+  253 -  Non-irrigated winter wheat.
+  255 - Non-irrigated double crop, winter wheat and soybeans.
 }
 \source{
 %%  ~~ reference to a publication or URL from which the data were obtained ~~

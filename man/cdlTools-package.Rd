@@ -14,10 +14,14 @@ Package: \tab cdlTools\cr
 Type: \tab Package\cr
 Version: \tab 1.0\cr
 Date: \tab 2014-08-26\cr
-License: \tab What license is it under?\cr
+License: \tab BSD 2 clause\cr
 }
-~~ An overview of how to use the package, including the most important ~~
-~~ functions ~~
+This package allows for simple retreival of agricultural land cover in the United States through USDA's Cropland Data Layer (CDL).
+The most useful functions are 
+getCDL, a function to download CDL data by geographic bounding box, state, or county.
+cdl.updateNames, a function to apply class descriptions to the enumerated CDL data.
+, a function to download classification rates of the CDL data.
+, a function for quick classification of zonal statistics.  FUNC requires gdal_rasterize and gdal_polygonize to be available on the system path.
 }
 \author{
 Lu Chen and Jonathan Lisic 

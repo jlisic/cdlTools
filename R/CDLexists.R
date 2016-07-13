@@ -8,17 +8,17 @@ CDLexists <- function( x, year) {
   require(RCurl)
 
   # base url for cdl metadata
-  urlCheck <- "http://www.nass.usda.gov/research/Cropland/metadata/metadata_"
+  urlCheck <- "https://www.nass.usda.gov/Research_and_Science/Cropland/metadata/metadata_"
    
   # get the full url for the metadata 
   urlName <- sprintf("%s%s%02d.htm",
          urlCheck,
-         tolower(fips(x)), 
+         tolower(fips(x,to="Abbreviation")), 
          year%% 100 
          )
 
   # do a url request and scan for 404
-  if( length(grep("Error 404", getURL(urlName))) == 0 ) return( TRUE)
+  if( length(grep("the page you requested was not found", getURL(urlName))) == 0 ) return( TRUE)
   return(FALSE)
 }
 

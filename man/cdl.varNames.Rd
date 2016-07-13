@@ -2,8 +2,7 @@
 \alias{cdl.varNames}
 \docType{data}
 \title{
-  List of variables and names.
-%%   ~~ data name/kind ... ~~
+  List of enumerated CDL classes and class descriptions.
 }
 \description{
 %%  ~~ A concise (1-5 lines) description of the dataset. ~~

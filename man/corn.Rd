@@ -6,7 +6,7 @@
   %%   ~~ data name/kind ... ~~
 }
 \description{
-%%  ~~ A concise (1-5 lines) description of the dataset. ~~
+Data set of enumerated corn classes.
 }
 \usage{data(corn)}
 \format{
@@ -14,7 +14,13 @@
  num [1:6] 1 225 226 237 241 251
 }
 \details{
-%%  ~~ If necessary, more details than the __description__ above ~~
+  The corn enumeration contains:
+  1 - Corn.
+  225 - Double crop, winter wheat and corn.
+  226 - Double crop, oats and corn.
+  237 - Double crop, barley and corn.
+  241 - Double crop, corn and soybeans.
+  251 - Non-irrigated corn.
 }
 \source{
 %%  ~~ reference to a publication or URL from which the data were obtained ~~

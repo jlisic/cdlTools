@@ -1,5 +1,6 @@
 cdl.updateNames <-
 function( y ) {
+  data(cdl.varNames)
   return(
     unlist(lapply(y, function(x) { 
                   if( as.character(x) %in% cdl.varNames) {

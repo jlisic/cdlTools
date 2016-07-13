@@ -13,19 +13,14 @@ cdl.updateNames(y)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{y}{
-%%     ~~Describe \code{y} here~~
+  \item{y}{ A vecor of integers indexing CDL classes.
 }
 }
 \details{
-%%  ~~ If necessary, more details than the description above ~~
+This function takes a list of integers between zero and 255, and converts them into CDL data descriptions. 
 }
 \value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
+  The value returned is a string uniquely describing a land cover category.
 }
 \references{
 %% ~put references to the literature/web site here ~

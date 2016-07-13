@@ -1,7 +1,22 @@
-# this will need to be renames .fips
-# fips will be an sapply of fips
+#'Get US state FIPS code
+#'
+#'Retrieve 2-digit US state FIPS code by names
+#'
+#'@param x A character string. State names. It can be the two-letter postal abbreviation or the full name. The string is case insensitive.
+#'
+#'
+#'@return 2-digit state FIPS code
+#'
+#'@examples
+#'fips("ia")
+#'fips('northcarolina')
+#'fips('North Carolina')
+#'fips(44:48)
+#'
+#'@export
+#'
 
-fips <- function( x , to='Abbreviation') {
+fips <- function( x , to='FIPS') {
 
   # handle the case of 0 length
   if(length(x) == 0 ) return(NA)
@@ -13,17 +28,24 @@ fips <- function( x , to='Abbreviation') {
   data(census2010FIPS)
   data(stateNames)
 
-
   # Convert To Fips
   if( to == 'FIPS') {
     
     # for matching convert to upper case 
-    x <- toupper(x)
-
-
+    x <- sub(" ","",toupper(as.character(x)))
+    
+    # check if x contains numbers 
+    if( grepl("[0-9]",x[1]) ) {
+      # if the two letters are actually numbers we convert to numeric
+      # and return the abreviation
+      if(as.numeric(x) %in% census2010FIPS$State.ANSI) {
+        return(as.numeric(x)) 
+      } else return(NA)
+    }
+    
     # if it is a full state name convert to  
     if( x %in% sub(" ","",toupper(as.character(stateNames$STATENAME)))) {
-      x <- stateNames[x == sub(" ","",toupper(as.character(stateNames$STATENAME))),'State'][1] 
+      x <- stateNames[x == sub(" ","",toupper(as.character(stateNames$STATENAME))),'STATE'][1] 
       x <- as.character(x)
     }
    
