@@ -1,10 +1,20 @@
 Package: cdlTools
-Type: Package
-Title: A small selection of tools to download and work with USDA cropscape data. 
-Version: 0.02
+Title: Tools to download and work with USDA cropscape data
+Version: 0.1
 Date: 2014-08-26
-Author: Lu Chen and  Jonathan Lisic 
+Author: Lu Chen and  Jonathan Lisic
 Maintainer: Jonathan Lisic <jonathan.lisic@nass.usda.gov>
-Description: This program will download USDA National Agricultural Statistics Service (NASS) cropscape data for a bounding box, state, or county.  It also provides basic utilities for resampling the data through the raster package.  Utilities for fips, abbreviations, and name conversion our also provided.  Full functionality requires an internet connection, but data sets can be cached for later off-line use.  
-License: BSD 2-clause License
- 
+Description: This program will download USDA National Agricultural Statistics
+    Service (NASS) cropscape data for a bounding box, state, or county. It also
+    provides basic utilities for resampling the data through the raster package.
+    Utilities for fips, abbreviations, and name conversion our also provided. Full
+    functionality requires an internet connection, but data sets can be cached for
+    later off-line use.
+License: Unlimited
+LazyData: true
+Imports:
+    RCurl,
+    raster,
+    XML,
+    rgdal
+RoxygenNote: 5.0.1

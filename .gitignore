@@ -228,3 +228,4 @@ pip-log.txt
 *.so
 *.dll
 *.dylib
+.Rproj.user

@@ -1,19 +1,24 @@
-#'Get US state FIPS code
+#'FIPS code conversion function.
 #'
-#'Retrieve 2-digit US state FIPS code by names
+#'\code{fips} converts U.S. state names and abbreviations to and from FIPS codes.
 #'
-#'@param x A character string. State names. It can be the two-letter postal abbreviation or the full name. The string is case insensitive.
+#'The Federal Information Processing Standard (FIPS) provides a set of standard numeric 
+#'codes for refering to U.S. states.  This function converts between FIPS codes, state two 
+#'letter abbreviations, and full state names.
 #'
-#'
-#'@return 2-digit state FIPS code
-#'
+#'@param x A character string or numeric FIPS code. Character input can be the two-letter 
+#'  postal abbreviation, the full name of a state, or a FIPS code in character format. 
+#'  The string is case insensitive.  FIPS codes are the only numeric input supported.
+#'@param to A character string of output type:  "FIPS" will return a numeric fips code.
+#'  "Abbreviation" will return a two letter state abbreviation.  "Name" will return the
+#'  full state name with spaces.  The default output is a numeric FIPS code.
+#'@return The output type specified by the "to" argument.  If no match can be made, the 
+#'  program returns NA.
 #'@examples
 #'fips("ia")
-#'fips('northcarolina')
+#'fips('northcarolina', to='Abbreviation')
 #'fips('North Carolina')
-#'fips(44:48)
-#'
-#'@export
+#'fips(44,to='Name')
 #'
 
 fips <- function( x , to='FIPS') {
@@ -24,9 +29,9 @@ fips <- function( x , to='FIPS') {
   # handle the case of NA
   if(is.na(x)) return(NA)
 
+  #data(census2010FIPS,package="cdlTools",envir=environment())
+  #data(stateNames,package="cdlTools",envir=environment())
 
-  data(census2010FIPS)
-  data(stateNames)
 
   # Convert To Fips
   if( to == 'FIPS') {
@@ -37,7 +42,7 @@ fips <- function( x , to='FIPS') {
     # check if x contains numbers 
     if( grepl("[0-9]",x[1]) ) {
       # if the two letters are actually numbers we convert to numeric
-      # and return the abreviation
+      # and return the abbreviation
       if(as.numeric(x) %in% census2010FIPS$State.ANSI) {
         return(as.numeric(x)) 
       } else return(NA)
@@ -60,7 +65,7 @@ fips <- function( x , to='FIPS') {
   if( to == 'Abbreviation') {
   
     # if the two letters are actually numbers we convert to numeric
-    # and return the abreviation
+    # and return the abbreviation
     if( grepl("[0-9]",x[1]) ) {
       if(as.numeric(x) %in% census2010FIPS$State.ANSI) {
         return( as.character( census2010FIPS[as.numeric(x) == census2010FIPS$State.ANSI, 'State'] )[1]) 
@@ -104,7 +109,7 @@ fips <- function( x , to='FIPS') {
     }
   
     # abbreviation to full state 
-    return( sub(" ","",as.character( stateNames[x == toupper(as.character(stateNames$STATE)),'STATENAME'][1])) )
+    return( as.character( stateNames[x == toupper(as.character(stateNames$STATE)),'STATENAME'][1]) )
 
   }
  
