@@ -14,7 +14,7 @@
 #'getCDL("California",c(2013,2015))
 #'getCDL("CA",c(2013,2015))
 #'}
-#' @importFrom utils data download.file
+#' @importFrom utils data download.file unzip
 #' @importFrom raster raster
 #' @importFrom XML xmlToDataFrame 
 #'@export
@@ -29,13 +29,23 @@ getCDL <- function(x,year,alternativeUrl,location){
     if(missing(location)) location <- tempdir()
     # get data from USDA
     if(missing(alternativeUrl)) {
-      xmlurl <- sprintf("http://nassgeodata.gmu.edu:8080/axis2/services/CDLService/GetCDLFile?year=%d&fips=%s",year,x)
-      url <- as.character(xmlToDataFrame(xmlurl)$text)
+      if(year < 2015 ) { # in 2015 there was a switch to zip files in the cache
+        xmlurl <- sprintf("http://nassgeodata.gmu.edu:8080/axis2/services/CDLService/GetCDLFile?year=%d&fips=%s",year,x)
+        
+      } else {
+        xmlurl <- sprintf("https://nassgeodata.gmu.edu/nass_data_cache/byfips/CDL_%d_%s.zip",year,x) 
+      }
     } else {
       url <- paste(alternativeUrl,sprintf("CDL_%d_%s.tif",year,x),sep="/")
     }
     
-    download.file(url,destfile=paste(location,sprintf("CDL_%d_%s.tif",year,x),sep="/"),mode="wb")
+    if(year < 2015) {
+      download.file(url,destfile=paste(location,sprintf("CDL_%d_%s.tif",year,x),sep="/"),mode="wb")
+    } else {
+      download.file(url,destfile=paste(location,sprintf("CDL_%d_%s.zip",year,x),sep="/"),mode="wb")
+      
+      print(paste(location,sprintf("CDL_%d_%s.zip",year,x),sep="/"))
+    }
     target <- raster(paste(location,sprintf("CDL_%d_%s.tif",year,x),sep="/")) 
     names.array <- append(names.array, year)
     cdl.list <- append(cdl.list,target)
