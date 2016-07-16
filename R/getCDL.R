@@ -31,9 +31,9 @@ getCDL <- function(x,year,alternativeUrl,location){
     if(missing(alternativeUrl)) {
       if(year < 2015 ) { # in 2015 there was a switch to zip files in the cache
         xmlurl <- sprintf("http://nassgeodata.gmu.edu:8080/axis2/services/CDLService/GetCDLFile?year=%d&fips=%s",year,x)
-        
+        url <- as.character(xmlToDataFrame(xmlurl)$text) 
       } else {
-        xmlurl <- sprintf("https://nassgeodata.gmu.edu/nass_data_cache/byfips/CDL_%d_%s.zip",year,x) 
+        url <- sprintf("https://nassgeodata.gmu.edu/nass_data_cache/byfips/CDL_%d_%02d.zip",year,x) 
       }
     } else {
       url <- paste(alternativeUrl,sprintf("CDL_%d_%s.tif",year,x),sep="/")
