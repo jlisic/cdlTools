@@ -29,8 +29,8 @@ fips <- function( x , to='FIPS') {
   # handle the case of NA
   if(is.na(x)) return(NA)
 
-  #data(census2010FIPS,package="cdlTools",envir=environment())
-  #data(stateNames,package="cdlTools",envir=environment())
+  data(census2010FIPS,envir=environment())
+  data(stateNames,envir=environment())
 
 
   # Convert To Fips
