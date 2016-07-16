@@ -43,8 +43,7 @@ getCDL <- function(x,year,alternativeUrl,location){
       download.file(url,destfile=paste(location,sprintf("CDL_%d_%s.tif",year,x),sep="/"),mode="wb")
     } else {
       download.file(url,destfile=paste(location,sprintf("CDL_%d_%s.zip",year,x),sep="/"),mode="wb")
-      
-      print(paste(location,sprintf("CDL_%d_%s.zip",year,x),sep="/"))
+      unzip(paste(location,sprintf("CDL_%d_%s.zip",year,x),sep="/"))
     }
     target <- raster(paste(location,sprintf("CDL_%d_%s.tif",year,x),sep="/")) 
     names.array <- append(names.array, year)
