@@ -6,14 +6,18 @@
 #'@param x A CDL raster image.
 #'@param y A CDL raster image.
 #'@return A matrix with pixel counts by unique ordered CDL crop pairs in x and y. 
-#'@examples
+#'@examples\dontrun{
 #'z1 <- matrix( rep(c(1,4),8), nrow=4) 
 #'z2 <- matrix( rep(c(1:4),4), nrow=4) 
 #'
 #'r1 <- raster(z1)
 #'r2 <- raster(z2)
 #'
-#'a <- matchCount(r1,r2)
+#' a <- matchCount(r1,r2)
+#' }
+#' @importFrom raster raster values
+#' @useDynLib cdlTools
+#'@export
 matchCount <- function(
   x,
   y
