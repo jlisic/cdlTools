@@ -14,7 +14,7 @@ Package: \tab cdlTools\cr
 Type: \tab Package\cr
 Version: \tab 0.1\cr
 Date: \tab 2014-08-26\cr
-License: \tab BSD 2 clause\cr
+License: \tab Unlimited\cr
 }
 This package allows for simple retreival of agricultural land cover in the United States 
 through USDA's Cropland Data Layer (CDL).  The most useful functions are getCDL, a 
