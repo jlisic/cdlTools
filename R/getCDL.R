@@ -39,7 +39,7 @@ getCDL <- function(x,year,alternativeUrl,location){
       url <- paste(alternativeUrl,sprintf("CDL_%d_%s.tif",year,x),sep="/")
     }
     
-    if(year < 2015) {
+    if(( year < 2015) | !missing(alternativeUrl) ) {
       download.file(url,destfile=paste(location,sprintf("CDL_%d_%s.tif",year,x),sep="/"),mode="wb")
     } else {
       download.file(url,destfile=paste(location,sprintf("CDL_%d_%s.zip",year,x),sep="/"),mode="wb")
