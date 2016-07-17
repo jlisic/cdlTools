@@ -22,7 +22,7 @@
 matchCount <- function(
   x,
   y,
-  m
+  m=256
   ) {
 
   # get the values 
