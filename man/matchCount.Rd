@@ -4,12 +4,14 @@
 \alias{matchCount}
 \title{Counts distinct pixel pairs in CDL raster images.}
 \usage{
-matchCount(x, y)
+matchCount(x, y, m)
 }
 \arguments{
 \item{x}{A CDL raster image.}
 
 \item{y}{A CDL raster image.}
+
+\item{m}{A bound for the max enumeration of CDL categories.  The default is 256.}
 }
 \value{
 A matrix with pixel counts by unique ordered CDL crop pairs in x and y.
