@@ -5,6 +5,7 @@
 #'
 #'@param x A CDL raster image.
 #'@param y A CDL raster image.
+#'@param m A bound for the max enumeration of CDL categories.  The default is 256.
 #'@return A matrix with pixel counts by unique ordered CDL crop pairs in x and y. 
 #'@examples\dontrun{
 #'z1 <- matrix( rep(c(1,4),8), nrow=4) 
@@ -20,10 +21,9 @@
 #'@export
 matchCount <- function(
   x,
-  y
+  y,
+  m
   ) {
-
-  m <- 255 #bound for CDL data categories
 
   # get the values 
   x.values <- values(x)
