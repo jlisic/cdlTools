@@ -1,4 +1,4 @@
-#'Counts distinct pixel pairs in CDL raster images.
+#'Counts distinct pixel pairs in CDL raster images
 #'
 #'\code{matchCount} counts distinct pixel pairs for CDL raster images with 
 #'  same extents and resolution.
@@ -43,7 +43,8 @@ matchCount <- function(
     as.integer( rep(-1, x.max * m )),
     as.integer( rep( 0, x.max * m )),
     as.integer(m),
-    as.integer(length(x.values))
+    as.integer(length(x.values)),
+    PACKAGE='cdlTools'
   )
 
   # get matched values

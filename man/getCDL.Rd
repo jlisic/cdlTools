@@ -2,7 +2,7 @@
 % Please edit documentation in R/getCDL.R
 \name{getCDL}
 \alias{getCDL}
-\title{Get CDL raster data.}
+\title{Get CDL raster data}
 \usage{
 getCDL(x, year, alternativeUrl, location)
 }

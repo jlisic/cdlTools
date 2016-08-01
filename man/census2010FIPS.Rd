@@ -3,7 +3,7 @@
 \docType{data}
 \name{census2010FIPS}
 \alias{census2010FIPS}
-\title{U.S. Census 2010 FIPS Data.}
+\title{U.S. Census 2010 FIPS Data}
 \format{A data frame with 3235 rows and 5 variables.
 \describe{
 \item{State}{State two letter abbreviation}

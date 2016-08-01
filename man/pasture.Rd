@@ -3,7 +3,7 @@
 \docType{data}
 \name{pasture}
 \alias{pasture}
-\title{CDL pasture classes.}
+\title{CDL pasture classes}
 \format{An object of class \code{numeric} of length 5.}
 \source{
 \url{https://www.nass.usda.gov/Research_and_Science/Cropland/metadata/meta.php}

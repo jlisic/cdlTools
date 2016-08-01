@@ -3,7 +3,7 @@
 \docType{data}
 \name{springWheat}
 \alias{springWheat}
-\title{CDL spring wheat classes.}
+\title{CDL spring wheat classes}
 \format{An object of class \code{numeric} of length 1.}
 \source{
 \url{https://www.nass.usda.gov/Research_and_Science/Cropland/metadata/meta.php}

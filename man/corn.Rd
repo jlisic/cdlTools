@@ -3,7 +3,7 @@
 \docType{data}
 \name{corn}
 \alias{corn}
-\title{CDL corn classes.}
+\title{CDL corn classes}
 \format{An object of class \code{numeric} of length 6.}
 \source{
 \url{https://www.nass.usda.gov/Research_and_Science/Cropland/metadata/meta.php}

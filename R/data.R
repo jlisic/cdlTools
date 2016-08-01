@@ -1,4 +1,4 @@
-#'U.S. Census 2010 FIPS Data.
+#'U.S. Census 2010 FIPS Data
 #'
 #'U.S. Census 2010 FIPS Data containing county names, state and county FIPS codes, 
 #'and state abbreviations.
@@ -14,7 +14,7 @@
 #' @source \url{http://www2.census.gov/geo/docs/reference/codes/files/national_county.txt}
 "census2010FIPS"
 
-#'U.S. Census 2010 State FIPS Data.
+#'U.S. Census 2010 State FIPS Data
 #'
 #'U.S. Census 2010 State FIPS Data containing names, FIPS codes, and abbreviations.
 #' 
@@ -26,7 +26,7 @@
 #' @source \url{http://www2.census.gov/geo/docs/reference/codes/files/national_county.txt}
 "stateNames"
 
-#'CDL corn classes.
+#'CDL corn classes
 #'
 #'An array of CDL enumerations that contain corn.  The corn enumeration contains: 
 #' \itemize{
@@ -41,7 +41,7 @@
 #' @source \url{https://www.nass.usda.gov/Research_and_Science/Cropland/metadata/meta.php}
 "corn"
 
-#'CDL cotton classes.
+#'CDL cotton classes
 #'
 #'An array of CDL enumerations that contain cotton.  The cotton enumeration contains: 
 #' \itemize{
@@ -54,7 +54,7 @@
 #' @source \url{https://www.nass.usda.gov/Research_and_Science/Cropland/metadata/meta.php}
 "cotton"
 
-#'CDL cultivated classes.
+#'CDL cultivated classes
 #'
 #'An array of CDL enumerations of cultivated land cover.  Not all cultivated 
 #'enumerations have labels as of this time, and are reserved for future land cover
@@ -199,7 +199,7 @@
 "cultivated"
 
 
-#'CDL durum wheat classes.
+#'CDL durum wheat classes
 #'
 #'An array of CDL enumerations that contain durum wheat.  The durum wheat enumeration contains: 
 #' \itemize{
@@ -211,7 +211,7 @@
 #' @source \url{https://www.nass.usda.gov/Research_and_Science/Cropland/metadata/meta.php}
 "durumWheat"
 
-#'CDL nothing class.
+#'CDL nothing class
 #'
 #'An array of CDL enumerations that contain the nothing class.  The nothing enumeration contains: 
 #' \itemize{
@@ -221,7 +221,7 @@
 #' @source \url{https://www.nass.usda.gov/Research_and_Science/Cropland/metadata/meta.php}
 "nothing"
 
-#'CDL pasture classes.
+#'CDL pasture classes
 #'
 #'An array of CDL enumerations that contain pasture.  The pasture enumeration contains: 
 #' \itemize{
@@ -236,7 +236,7 @@
 "pasture"
 
 
-#'CDL soybeans classes.
+#'CDL soybeans classes
 #'
 #'An array of CDL enumerations that contain soybeans.  The soybeans enumeration contains: 
 #' \itemize{
@@ -255,7 +255,7 @@
 "soybeans"
 
 
-#'CDL spring wheat classes.
+#'CDL spring wheat classes
 #'
 #'An array of CDL enumerations that contain spring wheat.  The spring wheat enumeration contains: 
 #' \itemize{
@@ -266,7 +266,7 @@
 "springWheat"
 
 
-#'CDL water classes.
+#'CDL water classes
 #'
 #'An array of CDL enumerations that contain water.  The water enumeration contains: 
 #' \itemize{
@@ -278,7 +278,7 @@
 "water"
 
 
-#'CDL winter wheat classes.
+#'CDL winter wheat classes
 #'
 #'An array of CDL enumerations that contain winter wheat.  The winter wheat enumeration contains: 
 #' \itemize{
@@ -295,7 +295,7 @@
 "winterWheat"
 
 
-#' The default projection of CDL data.
+#' The default projection of CDL data
 #' 
 #'The proj4 string used for all CDL data.
 #'  "+proj=aea +lat_1=29.5 +lat_2=45.5 +lat_0=23 +lon_0=-96 +x_0=0 +y_0=0 +datum=NAD83 
@@ -304,7 +304,7 @@
 #' @source \url{https://www.nass.usda.gov/Research_and_Science/Cropland/metadata/meta.php}
 "projCDL"
 
-#'Enumerated CDL classes. 
+#'Enumerated CDL classes
 #' 
 #'A list of enumerated CDL classes and class descriptions.
 #'

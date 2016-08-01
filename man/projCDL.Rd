@@ -3,7 +3,7 @@
 \docType{data}
 \name{projCDL}
 \alias{projCDL}
-\title{The default projection of CDL data.}
+\title{The default projection of CDL data}
 \format{An object of class \code{character} of length 1.}
 \source{
 \url{https://www.nass.usda.gov/Research_and_Science/Cropland/metadata/meta.php}

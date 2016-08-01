@@ -3,7 +3,7 @@
 \docType{data}
 \name{winterWheat}
 \alias{winterWheat}
-\title{CDL winter wheat classes.}
+\title{CDL winter wheat classes}
 \format{An object of class \code{numeric} of length 7.}
 \source{
 \url{https://www.nass.usda.gov/Research_and_Science/Cropland/metadata/meta.php}

@@ -2,9 +2,9 @@
 % Please edit documentation in R/matchCount.R
 \name{matchCount}
 \alias{matchCount}
-\title{Counts distinct pixel pairs in CDL raster images.}
+\title{Counts distinct pixel pairs in CDL raster images}
 \usage{
-matchCount(x, y, m)
+matchCount(x, y, m = 256)
 }
 \arguments{
 \item{x}{A CDL raster image.}

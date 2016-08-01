@@ -1,4 +1,4 @@
-#'Get CDL raster data.
+#'Get CDL raster data
 #'
 #'\code{getCDL} retrieves CDL state raster objects for a set of years.
 #'
