@@ -7,7 +7,7 @@ sudo: required
 addons:
   apt:
     packages:
-      - libgdal1-dev 
+      - libgdal-dev 
       - libproj-dev 
       - libxml2-dev
       - libcurl4-openssl-dev
