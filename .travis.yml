@@ -6,7 +6,7 @@ sudo: required
 
 addons:
   apt:
-    packages: i
+    packages: 
       - gdal-bin 
       - libgdal1  
       - libgdal1-dev 
