@@ -2,8 +2,15 @@
 
 language: r
 warnings_are_errors: true
-sudo: false
+sudo: required 
 
+addons:
+  apt:
+    packages:
+      - libgdal1-dev 
+      - libproj-dev 
+      - libxml2-dev
+      - libcurl4-openssl-dev
 
 notifications:
   email:
