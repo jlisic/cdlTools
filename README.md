@@ -3,13 +3,13 @@
 
 Title: Tools to Download and Work with USDA Cropscape Data
 
-Version: 0.11
+Version: 0.12
 
-Date: 2016-07-26
+Date: 2016-09-08
 
 Author: Lu Chen and  Jonathan Lisic
 
-Maintainer: Jonathan Lisic <jonathan.lisic@nass.usda.gov>
+Maintainer: Jonathan Lisic <jlisic@gmail.com>
 
 Description: Downloads USDA National Agricultural Statistics Service (NASS) cropscape data for a specified state. Utilities for fips, abbreviation, and name conversion are also provided. Full functionality requires an internet connection, but data sets can be cached for later off-line use.
 

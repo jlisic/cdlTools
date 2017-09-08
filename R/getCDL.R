@@ -14,9 +14,9 @@
 #'getCDL("California",c(2013,2015))
 #'getCDL("CA",c(2013,2015))
 #'}
-#' @importFrom utils data download.file unzip
+#' @importFrom utils download.file unzip
 #' @importFrom raster raster
-#' @importFrom XML xmlToDataFrame 
+#' @importFrom Rcurl url.exists 
 #'@export
 getCDL <- function(x,year,alternativeUrl,location){
 
@@ -30,20 +30,27 @@ getCDL <- function(x,year,alternativeUrl,location){
 
     for(year in year){
       if(missing(location)) location <- tempdir()
-      # get data from USDA
+      # create cropscape URL 
       if(missing(alternativeUrl)) {
           url <- sprintf("https://nassgeodata.gmu.edu/nass_data_cache/byfips/CDL_%d_%02d.zip",year,x[i]) 
       } else {
         url <- paste(alternativeUrl,sprintf("CDL_%d_%02d.tif",year,x[i]),sep="/")
       }
-      
-      if(missing(alternativeUrl) ) {
-        download.file(url,destfile=paste(location,sprintf("CDL_%d_%02d.zip",year,x[i]),sep="/"),mode="wb")
-        unzip(paste(location,sprintf("CDL_%d_%02d.zip",year,x[i]),sep="/"),exdir=location)
-      } else {
-        download.file(url,destfile=paste(location,sprintf("CDL_%d_%02d.tif",year,x[i]),sep="/"),mode="wb")
+        
+      # check if URL exists 
+      if( !RCurl::url.exists(url) ) {
+        warning( sprintf("%s does not exist.",url) )
+        next  
       }
-      target <- raster(paste(location,sprintf("CDL_%d_%02d.tif",year,x[i]),sep="/")) 
+     
+      #download zip file 
+      if(missing(alternativeUrl) ) {
+        utils::download.file(url,destfile=paste(location,sprintf("CDL_%d_%02d.zip",year,x[i]),sep="/"),mode="wb")
+        utils::unzip(paste(location,sprintf("CDL_%d_%02d.zip",year,x[i]),sep="/"),exdir=location)
+      } else {
+        utils::download.file(url,destfile=paste(location,sprintf("CDL_%d_%02d.tif",year,x[i]),sep="/"),mode="wb")
+      }
+      target <- raster::raster(paste(location,sprintf("CDL_%d_%02d.tif",year,x[i]),sep="/")) 
       names.array <- append(names.array, paste0( fips(x[i],to="Abbreviation"),year))
       cdl.list <- append(cdl.list,target)
     }
