@@ -6,7 +6,7 @@
 #'codes for refering to U.S. states.  This function converts between FIPS codes, state two 
 #'letter abbreviations, and full state names.
 #'
-#' @param x A character string or numeric FIPS code. Character input can be the two-letter 
+#' @param x A vector, data frame or matrix of character strings or numeric FIPS codes. Character input can be the two-letter 
 #'  postal abbreviation, the full name of a state, or a FIPS code in character format. 
 #'  The string is case insensitive.  FIPS codes are the only numeric input supported.
 #' @param to A character string of output type:  "FIPS" will return a numeric fips code.
@@ -26,12 +26,18 @@ fips <- function( x , to='FIPS') {
 
   # handle the case of 0 length
   if(length(x) == 0 ) return(NA)
+  
+  # handle the case of multiple items
+  if(length(x) > 1) {
+    if(!is.null(ncol(x))) return( apply(x, 1:2, fips, to=to) )
+    return( sapply( x, fips, to=to ) )
+  }
 
   # handle the case of NA
   if(is.na(x)) return(NA)
 
   # Convert To Fips
-  if( to == 'FIPS') {
+  if( toupper(to) == 'FIPS') {
     
     # for matching convert to upper case 
     x <- sub(" ","",toupper(as.character(x)))
@@ -59,7 +65,7 @@ fips <- function( x , to='FIPS') {
     return(NA)
   }
   
-  if( to == 'Abbreviation') {
+  if( toupper(to) == 'ABBREVIATION') {
   
     # if the two letters are actually numbers we convert to numeric
     # and return the abbreviation
@@ -87,12 +93,12 @@ fips <- function( x , to='FIPS') {
 
   }
   
-  if( to == 'Name') {
+  if( toupper(to) == 'NAME') {
 
     # check if x contains numbers 
     if( grepl("[0-9]",x[1]) ) {
       # if the two letters are actually numbers we convert to numeric
-      # and return the abreviation
+      # and return the abbreviation
       if(as.numeric(x) %in% cdlTools::census2010FIPS$State.ANSI) {
          x <-  as.character( cdlTools::census2010FIPS[as.numeric(x) == cdlTools::census2010FIPS$State.ANSI, 'State'] )[1] 
       }

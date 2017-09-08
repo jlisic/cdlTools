@@ -24,30 +24,29 @@ getCDL <- function(x,year,alternativeUrl,location){
   names.array <- c()
  
   x <- fips(x)
- 
-  for(year in year){
-    if(missing(location)) location <- tempdir()
-    # get data from USDA
-    if(missing(alternativeUrl)) {
-      if(year < 2015 ) { # in 2015 there was a switch to zip files in the cache
-        xmlurl <- sprintf("http://nassgeodata.gmu.edu:8080/axis2/services/CDLService/GetCDLFile?year=%d&fips=%s",year,x)
-        url <- as.character(xmlToDataFrame(xmlurl)$text) 
+
+  for( i in 1:length(x) ) {
+    if( is.na(x[i]) ) next 
+
+    for(year in year){
+      if(missing(location)) location <- tempdir()
+      # get data from USDA
+      if(missing(alternativeUrl)) {
+          url <- sprintf("https://nassgeodata.gmu.edu/nass_data_cache/byfips/CDL_%d_%02d.zip",year,x[i]) 
       } else {
-        url <- sprintf("https://nassgeodata.gmu.edu/nass_data_cache/byfips/CDL_%d_%02d.zip",year,x) 
+        url <- paste(alternativeUrl,sprintf("CDL_%d_%02d.tif",year,x[i]),sep="/")
       }
-    } else {
-      url <- paste(alternativeUrl,sprintf("CDL_%d_%s.tif",year,x),sep="/")
+      
+      if(missing(alternativeUrl) ) {
+        download.file(url,destfile=paste(location,sprintf("CDL_%d_%02d.zip",year,x[i]),sep="/"),mode="wb")
+        unzip(paste(location,sprintf("CDL_%d_%02d.zip",year,x[i]),sep="/"),exdir=location)
+      } else {
+        download.file(url,destfile=paste(location,sprintf("CDL_%d_%02d.tif",year,x[i]),sep="/"),mode="wb")
+      }
+      target <- raster(paste(location,sprintf("CDL_%d_%02d.tif",year,x[i]),sep="/")) 
+      names.array <- append(names.array, paste0( fips(x[i],to="Abbreviation"),year))
+      cdl.list <- append(cdl.list,target)
     }
-    
-    if(( year < 2015) | !missing(alternativeUrl) ) {
-      download.file(url,destfile=paste(location,sprintf("CDL_%d_%s.tif",year,x),sep="/"),mode="wb")
-    } else {
-      download.file(url,destfile=paste(location,sprintf("CDL_%d_%s.zip",year,x),sep="/"),mode="wb")
-      unzip(paste(location,sprintf("CDL_%d_%s.zip",year,x),sep="/"),exdir=location)
-    }
-    target <- raster(paste(location,sprintf("CDL_%d_%s.tif",year,x),sep="/")) 
-    names.array <- append(names.array, year)
-    cdl.list <- append(cdl.list,target)
   }
   names(cdl.list) <- names.array
   return(cdl.list)
