@@ -25,11 +25,12 @@ getCDL <- function(x,year,alternativeUrl,location,https=TRUE){
   names.array <- c()
  
   x <- fips(x)
+  years <- year # fix but can't change due to legacy
 
   for( i in 1:length(x) ) {
     if( is.na(x[i]) ) next 
 
-    for(year in year){
+    for(year in years){
       if(missing(location)) location <- tempdir()
       # create cropscape URL 
       if(missing(alternativeUrl)) {
