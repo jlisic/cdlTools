@@ -7,6 +7,7 @@
 #'@param year A numerical vector. A set of years of CDL data to download.
 #'@param alternativeUrl An optional string containing an alternative url.
 #'@param location An optional string containing a location to store the file.
+#'@param https An optional boolean to turn on and off https, default is on.
 #'@return A list of CDL raster objects of interested county for a set of years.
 #'@examples
 #'\dontrun{
@@ -18,7 +19,7 @@
 #' @importFrom raster raster
 #' @importFrom Rcurl url.exists 
 #'@export
-getCDL <- function(x,year,alternativeUrl,location){
+getCDL <- function(x,year,alternativeUrl,location,https=TRUE){
 
   cdl.list <- list()
   names.array <- c()
@@ -32,7 +33,11 @@ getCDL <- function(x,year,alternativeUrl,location){
       if(missing(location)) location <- tempdir()
       # create cropscape URL 
       if(missing(alternativeUrl)) {
-          url <- sprintf("https://nassgeodata.gmu.edu/nass_data_cache/byfips/CDL_%d_%02d.zip",year,x[i]) 
+          if(https) {
+            url <- sprintf("https://nassgeodata.gmu.edu/nass_data_cache/byfips/CDL_%d_%02d.zip",year,x[i]) 
+          } else {
+            url <- sprintf("http://nassgeodata.gmu.edu/nass_data_cache/byfips/CDL_%d_%02d.zip",year,x[i]) 
+          }
       } else {
         url <- paste(alternativeUrl,sprintf("CDL_%d_%02d.tif",year,x[i]),sep="/")
       }
