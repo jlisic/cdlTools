@@ -22,4 +22,3 @@ An array of CDL enumerations that contain pasture.  The pasture enumeration cont
 }
 }
 \keyword{datasets}
-

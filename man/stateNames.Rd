@@ -22,4 +22,3 @@ U.S. Census 2010 State FIPS Data containing names, FIPS codes, and abbreviations
 }
 }
 \keyword{datasets}
-

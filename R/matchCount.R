@@ -17,7 +17,7 @@
 #' a <- matchCount(r1,r2)
 #' }
 #' @importFrom raster raster values
-#' @useDynLib cdlTools
+#' @useDynLib cdlTools, .registration = TRUE
 #'@export
 matchCount <- function(
   x,

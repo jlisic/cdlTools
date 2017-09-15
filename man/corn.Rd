@@ -23,4 +23,3 @@ An array of CDL enumerations that contain corn.  The corn enumeration contains:
 }
 }
 \keyword{datasets}
-

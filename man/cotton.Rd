@@ -21,4 +21,3 @@ An array of CDL enumerations that contain cotton.  The cotton enumeration contai
 }
 }
 \keyword{datasets}
-

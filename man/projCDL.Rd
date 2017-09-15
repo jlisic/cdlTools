@@ -17,4 +17,3 @@ The proj4 string used for all CDL data.
   +units=m +no_defs +ellps=GRS80 +towgs84=0,0,0"
 }
 \keyword{datasets}
-

@@ -7,7 +7,7 @@
 fips(x, to = "FIPS")
 }
 \arguments{
-\item{x}{A character string or numeric FIPS code. Character input can be the two-letter 
+\item{x}{A vector, data frame or matrix of character strings or numeric FIPS codes. Character input can be the two-letter 
 postal abbreviation, the full name of a state, or a FIPS code in character format. 
 The string is case insensitive.  FIPS codes are the only numeric input supported.}
 
@@ -33,4 +33,3 @@ fips('northcarolina', to='Abbreviation')
 fips('North Carolina')
 fips(44,to='Name')
 }
-

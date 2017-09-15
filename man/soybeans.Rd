@@ -26,4 +26,3 @@ An array of CDL enumerations that contain soybeans.  The soybeans enumeration co
 }
 }
 \keyword{datasets}
-

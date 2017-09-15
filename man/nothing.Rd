@@ -18,4 +18,3 @@ An array of CDL enumerations that contain the nothing class.  The nothing enumer
 }
 }
 \keyword{datasets}
-

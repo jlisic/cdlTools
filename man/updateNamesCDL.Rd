@@ -19,4 +19,3 @@ An array of strings labeling each CDL class.  If the CDL class is
 \examples{
 updateNamesCDL(0:255)
 }
-

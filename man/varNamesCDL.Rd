@@ -15,4 +15,3 @@ varNamesCDL
 A list of enumerated CDL classes and class descriptions.
 }
 \keyword{datasets}
-

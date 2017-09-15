@@ -4,7 +4,7 @@
 \alias{getCDL}
 \title{Get CDL raster data}
 \usage{
-getCDL(x, year, alternativeUrl, location)
+getCDL(x, year, alternativeUrl, location, https = TRUE)
 }
 \arguments{
 \item{x}{Is either a two digit state FIPS code, a two letter abbreviation, or
@@ -15,6 +15,8 @@ a state name.}
 \item{alternativeUrl}{An optional string containing an alternative url.}
 
 \item{location}{An optional string containing a location to store the file.}
+
+\item{https}{An optional boolean to turn on and off https, default is on.}
 }
 \value{
 A list of CDL raster objects of interested county for a set of years.
@@ -24,9 +26,12 @@ A list of CDL raster objects of interested county for a set of years.
 }
 \examples{
 \dontrun{
+# Get data for California, 2013 and 2015
+# by FIPS
 getCDL(6,c(2013,2015))
+# Get data for California, 2013 and 2015
 getCDL("California",c(2013,2015))
-getCDL("CA",c(2013,2015))
+# Get all the west coast from 2009 to 2016
+getCDL(c("CA","OR","WA"),2013:2016)
 }
 }
-

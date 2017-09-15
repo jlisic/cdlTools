@@ -24,4 +24,3 @@ An array of CDL enumerations that contain winter wheat.  The winter wheat enumer
 }
 }
 \keyword{datasets}
-

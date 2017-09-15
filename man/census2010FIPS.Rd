@@ -23,4 +23,3 @@ U.S. Census 2010 FIPS Data containing county names, state and county FIPS codes,
 and state abbreviations.
 }
 \keyword{datasets}
-
