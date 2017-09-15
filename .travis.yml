@@ -2,17 +2,8 @@
 
 language: r
 warnings_are_errors: true
-sudo: required 
+sudo: false
 
-addons:
-  apt:
-    packages: 
-      - gdal-bin 
-      - libgdal1  
-      - libgdal1-dev 
-      - netcdf-bin 
-      - libproj-dev
-      - libxml2-dev
 
 notifications:
   email:

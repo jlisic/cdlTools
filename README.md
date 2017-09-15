@@ -23,8 +23,6 @@ RCurl,
 
 raster,
 
-XML,
-
-rgdal
+utils
 
 RoxygenNote: 5.0.1
