@@ -53,6 +53,7 @@ getCDL <- function(x,year,alternativeUrl,location,https=TRUE){
       if(missing(alternativeUrl) ) {
         utils::download.file(url,destfile=paste(location,sprintf("CDL_%d_%02d.zip",year,x[i]),sep="/"),mode="wb")
         utils::unzip(paste(location,sprintf("CDL_%d_%02d.zip",year,x[i]),sep="/"),exdir=location)
+        unlink(paste(location,sprintf("CDL_%d_%02d.zip",year,x[i]),sep="/"))
       } else {
         utils::download.file(url,destfile=paste(location,sprintf("CDL_%d_%02d.tif",year,x[i]),sep="/"),mode="wb")
       }
