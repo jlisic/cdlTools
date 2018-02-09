@@ -39,23 +39,23 @@ getCDL <- function(x,year,alternativeUrl,location,https=TRUE){
       # create cropscape URL 
       if(missing(alternativeUrl)) {
           if(https) {
-            url <- sprintf("https://nassgeodata.gmu.edu/nass_data_cache/byfips/CDL_%d_%02d.zip",year,x[i]) 
+            url <- sprintf("https://nassgeodata.gmu.edu/cdlservicedata/nass_data_cache/byfips/CDL_%d_%02d.zip",year,x[i]) 
           } else {
-            url <- sprintf("http://nassgeodata.gmu.edu/nass_data_cache/byfips/CDL_%d_%02d.zip",year,x[i]) 
+            url <- sprintf("http://nassgeodata.gmu.edu/cdlservicedata/nass_data_cache/byfips/CDL_%d_%02d.zip",year,x[i]) 
           }
       } else {
         url <- paste(alternativeUrl,sprintf("CDL_%d_%02d.tif",year,x[i]),sep="/")
       }
         
       # check if URL exists 
-      if( !RCurl::url.exists(url) ) {
-        warning( sprintf("%s does not exist.",url) )
-        next  
-      }
+      # if( !RCurl::url.exists(url) ) {
+      #   warning( sprintf("%s does not exist.",url) )
+      #   next  
+      # }
      
       #download zip file 
       if(missing(alternativeUrl) ) {
-        utils::download.file(url,destfile=paste(location,sprintf("CDL_%d_%02d.zip",year,x[i]),sep="/"),mode="wb")
+        curl::curl_download(url,destfile=paste(location,sprintf("CDL_%d_%02d.zip",year,x[i]),sep="/"),mode="wb")
         utils::unzip(paste(location,sprintf("CDL_%d_%02d.zip",year,x[i]),sep="/"),exdir=location)
         unlink(paste(location,sprintf("CDL_%d_%02d.zip",year,x[i]),sep="/"))
       } else {
