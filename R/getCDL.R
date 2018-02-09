@@ -8,6 +8,7 @@
 #'@param alternativeUrl An optional string containing an alternative url.
 #'@param location An optional string containing a location to store the file.
 #'@param https An optional boolean to turn on and off https, default is on.
+#'@param ssl.verifypeer An optional boolean to turn on and off ssl verfication, default is on.
 #'@return A list of CDL raster objects of interested county for a set of years.
 #'@examples
 #'\dontrun{
@@ -22,8 +23,9 @@
 #' @importFrom utils download.file unzip
 #' @importFrom raster raster
 #' @importFrom RCurl url.exists 
+#' @importFrom httr config GET write_disk
 #'@export
-getCDL <- function(x,year,alternativeUrl,location,https=TRUE){
+getCDL <- function(x,year,alternativeUrl,location,https=TRUE, ssl.verifypeer = TRUE){
 
   cdl.list <- list()
   names.array <- c()
@@ -46,20 +48,29 @@ getCDL <- function(x,year,alternativeUrl,location,https=TRUE){
       } else {
         url <- paste(alternativeUrl,sprintf("CDL_%d_%02d.tif",year,x[i]),sep="/")
       }
-        
-      # check if URL exists 
-      # if( !RCurl::url.exists(url) ) {
-      #   warning( sprintf("%s does not exist.",url) )
-      #   next  
-      # }
+       
+      # check if URL exists
+      if(!RCurl::url.exists(url, 
+            .opts = list(ssl.verifypeer = ssl.verifypeer))) {
+        warning( sprintf("%s does not exist.",url) )
+        next
+      }
      
-      #download zip file 
+      # download zip file 
       if(missing(alternativeUrl) ) {
-        curl::curl_download(url,destfile=paste(location,sprintf("CDL_%d_%02d.zip",year,x[i]),sep="/"),mode="wb")
-        utils::unzip(paste(location,sprintf("CDL_%d_%02d.zip",year,x[i]),sep="/"),exdir=location)
+        httr::GET(url, 
+          httr::write_disk(paste(
+            location, sprintf("CDL_%d_%02d.zip", year, x[i]), sep = "/"), 
+          overwrite = TRUE), 
+          config = httr::config(ssl_verifypeer = ssl.verifypeer))
+        
+        utils::unzip(paste(
+          location, sprintf("CDL_%d_%02d.zip", year, x[i]), sep="/"), 
+          exdir = location)
+        
         unlink(paste(location,sprintf("CDL_%d_%02d.zip",year,x[i]),sep="/"))
       } else {
-        utils::download.file(url,destfile=paste(location,sprintf("CDL_%d_%02d.tif",year,x[i]),sep="/"),mode="wb")
+        utils::download.file(url,destfile=paste(location,sprintf("CDL_%d_%02d.tif",year,x[i]),sep="/"),mode="wb", method = "curl")
       }
       target <- raster::raster(paste(location,sprintf("CDL_%d_%02d.tif",year,x[i]),sep="/")) 
       names.array <- append(names.array, paste0( fips(x[i],to="Abbreviation"),year))
