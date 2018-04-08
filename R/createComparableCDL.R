@@ -1,21 +1,25 @@
-#'Create comparable raster images.
+#'Create comparable raster images
 #'
 #'\code{createComparableCDL} uses a base index within a raster list, and sets all other
 #' raster images within the list to the same resolution, projection, and extent.  The 
-#' raster function resample is used to change projections and extents, therefore this 
+#' raster function resample is used to tranform raster images, therefore this 
 #' function may be quite slow without tuning.
 #'
-#' @param A vector of raster images.
-#' @param A vector of file names of raster images to coerce into a raster list, 
-#'  if rasterList is not provided.
-#' @param is the index of the vector element that all other elements will be converted
-#'   into.
-#' @param is a string for the raster progress bar type, default "" is none, 
+#' @param rasterList A list of raster images.
+#' @param filenames An array of file names of raster images to coerce into a raster list, 
+#'  if \code{rasterList} is not provided.
+#' @param baseIndex The index of the raster list element that all other elements will 
+#'  match with respect to resolution, projection and extent.
+#' @param progress A string for the raster progress bar type, default "" is none, 
 #'  "text" provides text output, "window" provides a gui window if available.
-#' @return A list of raster images matching in extent, resolution and projection. 
+#' @return A list of raster images matching in extent, resolution, and projection. 
 #' @examples
-#' r <- getCDL('rhode island',2008:2010)
+#' \dontrun{
+#' # download multiple years of Iowa Data
+#' r <- getCDL('iowa',c(2006,2010))
+#' # resample based on the 2006
 #' r2 <- createComparableCDL(r,baseIndex=1)
+#' }
 #' @author Jonathan Lisic, \email{jlisic@@gmail.com}
 #' @importFrom raster raster extent xres yres resample 
 #' @export

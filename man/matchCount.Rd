@@ -31,3 +31,6 @@ r2 <- raster(z2)
 a <- matchCount(r1,r2)
 }
 }
+\author{
+Jonathan Lisic, \email{jlisic@gmail.com}
+}

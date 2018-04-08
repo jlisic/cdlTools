@@ -38,3 +38,8 @@ getCDL("California",c(2013,2015))
 getCDL(c("CA","OR","WA"),2013:2016)
 }
 }
+\author{
+Jonathan Lisic, \email{jlisic@gmail.com}
+
+Joseph Stachelek, \email{stachel2@msu.edu}
+}

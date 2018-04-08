@@ -19,6 +19,7 @@
 #' fips('northcarolina', to='Abbreviation')
 #' fips('North Carolina')
 #' fips(44,to='Name')
+#' @author Jonathan Lisic, \email{jlisic@@gmail.com}
 #' @importFrom utils data download.file
 #' @export
 

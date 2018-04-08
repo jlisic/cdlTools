@@ -19,3 +19,6 @@ An array of strings labeling each CDL class.  If the CDL class is
 \examples{
 updateNamesCDL(0:255)
 }
+\author{
+Jonathan Lisic, \email{jlisic@gmail.com}
+}

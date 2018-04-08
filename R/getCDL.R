@@ -20,9 +20,11 @@
 #'# Get all the west coast from 2009 to 2016
 #'getCDL(c("CA","OR","WA"),2013:2016)
 #'}
+#' @author Jonathan Lisic, \email{jlisic@@gmail.com}
+#' @author Joseph Stachelek, \email{stachel2@@msu.edu}
 #' @importFrom utils download.file unzip
 #' @importFrom raster raster
-#' @importFrom RCurl url.exists 
+#' @importFrom httr http_error 
 #' @importFrom httr config GET write_disk
 #'@export
 getCDL <- function(x,year,alternativeUrl,location,https=TRUE, ssl.verifypeer = TRUE){
@@ -50,8 +52,7 @@ getCDL <- function(x,year,alternativeUrl,location,https=TRUE, ssl.verifypeer = T
       }
        
       # check if URL exists
-      if(!RCurl::url.exists(url, 
-            .opts = list(ssl.verifypeer = ssl.verifypeer))) {
+      if(httr::http_error(url, config = httr::config(ssl_verifypeer = ssl.verifypeer)) ){
         warning( sprintf("%s does not exist.",url) )
         next
       }

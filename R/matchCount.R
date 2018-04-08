@@ -16,6 +16,7 @@
 #'
 #' a <- matchCount(r1,r2)
 #' }
+#' @author Jonathan Lisic, \email{jlisic@@gmail.com}
 #' @importFrom raster raster values
 #' @useDynLib cdlTools, .registration = TRUE
 #'@export
