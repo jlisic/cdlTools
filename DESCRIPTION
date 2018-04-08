@@ -13,5 +13,6 @@ LazyData: true
 Imports:
     RCurl,
     raster,
-    utils
+    utils,
+    httr
 RoxygenNote: 6.0.1
