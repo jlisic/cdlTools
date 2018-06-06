@@ -2,7 +2,7 @@
 % Please edit documentation in R/createComparableCDL.R
 \name{createComparableCDL}
 \alias{createComparableCDL}
-\title{Create comparable raster images.}
+\title{Create comparable raster images}
 \usage{
 createComparableCDL(rasterList, filenames, baseIndex, progress = "")
 }
@@ -19,7 +19,7 @@ match with respect to resolution, projection and extent.}
 "text" provides text output, "window" provides a gui window if available.}
 }
 \value{
-A list of raster images matching in extent, resolution and projection.
+A list of raster images matching in extent, resolution, and projection.
 }
 \description{
 \code{createComparableCDL} uses a base index within a raster list, and sets all other
@@ -30,7 +30,7 @@ function may be quite slow without tuning.
 \examples{
 \dontrun{
 # download multiple years of Iowa Data
-r <- getCDL('rhode island',c(2006,2010))
+r <- getCDL('iowa',c(2006,2010))
 # resample based on the 2006
 r2 <- createComparableCDL(r,baseIndex=1)
 }

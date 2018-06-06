@@ -3,9 +3,9 @@
 
 Title: Tools to Download and Work with USDA Cropscape Data
 
-Version: 0.13
+Version: 0.14
 
-Date: 2018-04-08
+Date: 2018-06-05
 
 Author: Lu Chen and  Jonathan Lisic
 
