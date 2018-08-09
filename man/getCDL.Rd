@@ -4,14 +4,18 @@
 \alias{getCDL}
 \title{Get CDL raster data}
 \usage{
-getCDL(x, year, alternativeUrl, location, https = TRUE,
-  ssl.verifypeer = TRUE)
+getCDL(x = NA, year, bbox = NA, alternativeUrl, location = tempdir(),
+  https = TRUE, ssl.verifypeer = TRUE)
 }
 \arguments{
 \item{x}{Is either a two digit state FIPS code, a two letter abbreviation, or
 a state name.}
 
 \item{year}{A numerical vector. A set of years of CDL data to download.}
+
+\item{bbox}{A four element numeric bounding box vector specifying 
+xmin, ymin, xmax, ymax. All coordinates must be in the projection of 
+USA Contiguous Albers Equal Area Conic (USGS version).}
 
 \item{alternativeUrl}{An optional string containing an alternative url.}
 
@@ -32,10 +36,19 @@ A list of CDL raster objects of interested county for a set of years.
 # Get data for California, 2013 and 2015
 # by FIPS
 getCDL(6,c(2013,2015))
+
 # Get data for California, 2013 and 2015
 getCDL("California",c(2013,2015))
+
 # Get all the west coast from 2009 to 2016
 getCDL(c("CA","OR","WA"),2013:2016)
+
+# Get data for a custom bounding box
+getCDL(year = 2013, bbox = c(130783, 2203171, 153923, 2217961))
+   
+# Get data for a custom bounding box from 2013 to 2015
+getCDL(year = 2013:2015, bbox = c(130783, 2203171, 153923, 2217961))
+   
 }
 }
 \author{

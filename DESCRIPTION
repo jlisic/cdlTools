@@ -17,5 +17,6 @@ LazyData: true
 Imports:
     raster,
     utils,
-    httr
+    httr,
+    stringr
 RoxygenNote: 6.0.1
