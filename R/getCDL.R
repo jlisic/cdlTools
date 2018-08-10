@@ -63,7 +63,7 @@ getCDL <- function(x,year,alternativeUrl,location,https=TRUE, ssl.verifypeer = T
           httr::write_disk(paste(
             location, sprintf("CDL_%d_%02d.zip", year, x[i]), sep = "/"), 
           overwrite = TRUE), 
-          config = httr::config(ssl_verifypeer = ssl.verifypeer))
+          config = httr::config(ssl_verifypeer = ssl.verifypeer), progress())
         
         utils::unzip(paste(
           location, sprintf("CDL_%d_%02d.zip", year, x[i]), sep="/"), 
