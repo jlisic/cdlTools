@@ -39,7 +39,14 @@ getCDL <- function(x,year,alternativeUrl,location,https=TRUE, ssl.verifypeer = T
     if( is.na(x[i]) ) next 
 
     for(year in years){
-      if(missing(location)) location <- tempdir()
+      out_target <- paste(location, 
+                          sprintf("CDL_%d_%02d.tif", 
+                                  year, x[i]), sep = "/")
+      if(file.exists(out_target)){
+        target   <- raster::raster(out_target)
+        cdl.list <- append(cdl.list, target) 
+        next
+      }
       # create cropscape URL 
       if(missing(alternativeUrl)) {
           if(https) {
