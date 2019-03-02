@@ -8,6 +8,8 @@ Authors@R: c(
     person("Joseph","Stachelek", email = "stachel2@msu.edu", role="ctb")
     )
 Maintainer: Jonathan Lisic <jlisic@gmail.com>
+URL: https://www.github.com/jlisic/cdlTools
+BugReports: https://www.github.com/jlisic/cdlTools/issues
 Description: Downloads USDA National Agricultural Statistics Service (NASS) 
     cropscape data for a specified state. Utilities for fips, abbreviation, 
     and name conversion are also provided. Full functionality requires an 
