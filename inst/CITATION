@@ -1,0 +1,17 @@
+citHeader("When citing cdlTools, please cite both the package and underlying data sources used:")
+
+citEntry(entry = "Manual",
+         author = personList(
+           as.person("Lu Chen"),
+           as.person("Jonathan Lisic")),
+         title = "Tools to Download and Work with USDA Cropscape Data",
+         year = "2018",
+         url = "https://cran.r-project.org/package=cdlTools",
+         textVersion = paste("Chen, L., Lisic, J. (2018). Tools to Download and Work with USDA Cropscape Data. R package version 0.14. https://cran.r-project.org/package=cdlTools"))
+
+citEntry(entry = "Manual",
+         author = "USDA-NASS",
+         title = "National Agricultural Statistics Service Cropland Data Layer",
+         year = "2019",
+         url = "https://nassgeodata.gmu.edu/CropScape/",
+         textVersion = paste("USDA-NASS. (2019) National Agricultural Statistics Service Cropland Data Layer. https://nassgeodata.gmu.edu/CropScape/"))
