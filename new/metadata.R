@@ -26,16 +26,16 @@ metadata  <- function( state , year,https=TRUE, ssl.verifypeer = TRUE){
   if(length(state) == 0 ) return(NA)
 
   # convert to NA
-  state = fips(state, to='FIPS')
+  state = cdlTools::fips(state, to='FIPS')
   
   # handle the case of NA
   if(is.na(state)) return(NA)
 
   # downloading file
   if(https) {
-    url <- "https://www.nass.usda.gov/Research_and_Science/Cropland/metadata/metadata_%s%20d.htm", fips(state, to="abbreviation"),year %% 100)
+    url <- sprintf("https://www.nass.usda.gov/Research_and_Science/Cropland/metadata/metadata_%s%02d.htm", tolower(cdlTools::fips(state, to="abbreviation")),year %% 100)
   } else {
-    url <- "http://www.nass.usda.gov/Research_and_Science/Cropland/metadata/metadata_%s%20d.htm", fips(state, to="abbreviation"),year %% 100)
+    url <- sprintf("http://www.nass.usda.gov/Research_and_Science/Cropland/metadata/metadata_%s%02d.htm", tolower(cdlTools::fips(state, to="abbreviation")),year %% 100)
   }
 
   # check if URL exists
@@ -51,4 +51,14 @@ metadata  <- function( state , year,https=TRUE, ssl.verifypeer = TRUE){
 
 
 }
+
+
+library(rvest)
+
+metadata <- read_html(url)
+strsplit( html_text(html_nodes(metadata,"pre")[[3]]) , "\n")
+
+
+
+
 
