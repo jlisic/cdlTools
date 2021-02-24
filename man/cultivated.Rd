@@ -4,7 +4,9 @@
 \name{cultivated}
 \alias{cultivated}
 \title{CDL cultivated classes}
-\format{An object of class \code{numeric} of length 133.}
+\format{
+An object of class \code{numeric} of length 133.
+}
 \source{
 \url{https://www.nass.usda.gov/Research_and_Science/Cropland/metadata/meta.php}
 }

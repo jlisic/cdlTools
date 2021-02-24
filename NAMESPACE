@@ -3,6 +3,7 @@
 export(createComparableCDL)
 export(fips)
 export(getCDL)
+export(getCDL_bbox)
 export(matchCount)
 export(updateNamesCDL)
 importFrom(httr,GET)

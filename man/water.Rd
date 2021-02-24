@@ -4,7 +4,9 @@
 \name{water}
 \alias{water}
 \title{CDL water classes}
-\format{An object of class \code{numeric} of length 2.}
+\format{
+An object of class \code{numeric} of length 2.
+}
 \source{
 \url{https://www.nass.usda.gov/Research_and_Science/Cropland/metadata/meta.php}
 }

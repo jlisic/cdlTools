@@ -4,14 +4,16 @@
 \name{census2010FIPS}
 \alias{census2010FIPS}
 \title{U.S. Census 2010 FIPS Data}
-\format{A data frame with 3235 rows and 5 variables.
+\format{
+A data frame with 3235 rows and 5 variables.
 \describe{
 \item{State}{State two letter abbreviation}
 \item{State.ANSI}{State FIPS code}
 \item{County.ANSI}{County FIPS code}
 \item{County.Name}{County Name}
 \item{ANSI.Cl}{FIPS class code}
-}}
+}
+}
 \source{
 \url{http://www2.census.gov/geo/docs/reference/codes/files/national_county.txt}
 }

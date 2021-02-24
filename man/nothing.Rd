@@ -4,7 +4,9 @@
 \name{nothing}
 \alias{nothing}
 \title{CDL nothing class}
-\format{An object of class \code{numeric} of length 1.}
+\format{
+An object of class \code{numeric} of length 1.
+}
 \source{
 \url{https://www.nass.usda.gov/Research_and_Science/Cropland/metadata/meta.php}
 }

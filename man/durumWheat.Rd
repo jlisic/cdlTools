@@ -4,7 +4,9 @@
 \name{durumWheat}
 \alias{durumWheat}
 \title{CDL durum wheat classes}
-\format{An object of class \code{numeric} of length 3.}
+\format{
+An object of class \code{numeric} of length 3.
+}
 \source{
 \url{https://www.nass.usda.gov/Research_and_Science/Cropland/metadata/meta.php}
 }

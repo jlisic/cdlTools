@@ -1,7 +1,7 @@
 Package: cdlTools
 Title: Tools to Download and Work with USDA Cropscape Data
-Version: 0.15
-Date: 2020-06-23
+Version: 0.16
+Date: 2021-02-24
 Authors@R: c(
     person("Jonathan", "Lisic", email = "jlisic@gmail.com", role = "cre"),
     person("Lu", "Chen", role = "aut"),
@@ -20,4 +20,4 @@ Imports:
     raster,
     utils,
     httr
-RoxygenNote: 6.0.1
+RoxygenNote: 7.1.1
