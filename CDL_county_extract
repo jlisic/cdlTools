@@ -1,0 +1,66 @@
+library(sf)
+library(tidyverse)
+library(raster)
+library(data.table)
+library(exactextractr)
+library(cdlTools)
+library(tigris)
+
+
+#upload rasters from download CDL (if >1 then each one represents years). This can all be callled directly from cdltools as shown in example below, though I am not sure how to do multiple states since CDL returns by the state. 
+rastlist <- list.files(path = "Conus_CDL", pattern='.tiff', recursive=TRUE, all.files=TRUE, full.names=TRUE)
+allrasters <- lapply(rastlist, raster)
+
+count_ext<- function(allrasters, states,years) { 
+  crs<-as.character(raster::crs(allrasters[[1]])) #this calls the CRS from the first raster. This could be misleading if crs is differnet for differnt years
+  bound<- tigris::counties(state = states, year = years[1], refresh= T)
+  bound<- st_transform(bound,st_crs(crs))
+  yr<-years
+  df<-  lapply(yr, function(years) {
+    j<- years-(yr[1]-1)
+    ras<-allrasters[[j]]
+    ext<- exact_extract(ras,bound) %>% 
+      rbindlist(idcol = "ID") %>%
+      group_by(value,ID) %>%
+      summarise_at(vars(coverage_fraction),sum, na.rm = TRUE) 
+    total<- ext %>% group_by(ID) %>% 
+      summarise_at(vars(coverage_fraction),sum, na.rm = TRUE) 
+    df<- data.table(sort(unique(ext$ID)),bound$GEOID, total$coverage_fraction)
+    names(df)[1]<- "ID"
+    names(df)[2]<- "FIPS"
+    names(df)[3]<- "County_Total"
+    final<- merge(df, ext, by = 'ID')
+    final<- final%>% mutate(year= years, perc_tot= final$coverage_fraction/final$County_Total, Cov_acre= coverage_fraction*0.222394, County_Total_Acre= County_Total*0.222394)
+    final<-final[,c(-1)]
+    setcolorder(final, c("year","FIPS", "value", "coverage_fraction", "County_Total","perc_tot", "Cov_acre", "County_Total_Acre"))
+    names(final)[3]<- "CDL_ID"
+    names(final)[4]<- "Pixel.Count.30m"
+    return(final)
+  })
+  
+  data_panel<- rbindlist(df)
+  data_panel$CDL_Name<- updateNamesCDL(data_panel$CDL_ID)
+  return(data_panel)
+}
+
+
+#run for many states, use the below code to not overload memory and runs it state by state
+state.select<- c("08","06","11") #example of what the vector should look likes
+
+count_ext_big<- function(state.select,yr){
+l<- list()
+for (i in 1:length(state.select)){
+  l[[i]]<-count_ext(conus_county,state.select[i],yr)
+}
+panel<- rbindlist(l)
+return(panel)
+}
+
+
+#example usings CDL tools
+states<- c("44") 
+years<- 2011:2012
+years-(years[1]-1)
+allrasters<- getCDL(as.numeric(states), year = years, location = "~/Desktop", ssl.verifypeer=F)
+panel<- count_ext(allrasters,states,years)
+head(panel)
