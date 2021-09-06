@@ -4,7 +4,14 @@
 \alias{getCDL}
 \title{Get CDL raster data}
 \usage{
-getCDL(x, year, alternativeUrl, location, https = TRUE, ssl.verifypeer = TRUE)
+getCDL(
+  x,
+  year,
+  alternativeUrl,
+  location = tempdir(),
+  https = TRUE,
+  ssl.verifypeer = TRUE
+)
 }
 \arguments{
 \item{x}{Is either a two digit state FIPS code, a two letter abbreviation, or
@@ -14,7 +21,7 @@ a state name.}
 
 \item{alternativeUrl}{An optional string containing an alternative url.}
 
-\item{location}{An optional string containing a folder to store the file.}
+\item{location}{An optional string containing a folder to store the file.  If no folder is given, the R temporary directory will be used.}
 
 \item{https}{An optional boolean to turn on and off https, default is on.}
 

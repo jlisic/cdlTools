@@ -1,6 +1,6 @@
 #'Get CDL raster data for a bounding box
 #'
-#'\code{getCDL_bbox} retrieves a CDL raster object within a bounding box for a given year.
+#'\code{getCDL_bbox} retrieves a CDL raster object within a bounding box for a set of years.
 #'
 #'@param year A numerical vector. A set of years of CDL data to download.
 #'@param bbox An array defining a bounding box of length four.  Defining the two points that form the box by latitude then longitude, in that order.  The furthest north west pair is entered first.
@@ -13,7 +13,7 @@
 #'@return A raster object containing the contents of a bounding box.
 #'@examples
 #'\dontrun{
-#'# Get data for California, 2013 and 2015
+#'# Get data for California in 2020
 #'bbox <- c(130783,2203171,153923,2217961)
 #'resx <- 30 
 #'resy <- 30 
@@ -45,8 +45,8 @@ getCDL_bbox <- function(year,bbox,fileName,res,crs='EPSG:5070',https=TRUE,altern
     
   # check if URL exists
   if(httr::http_error(url, config = httr::config(ssl_verifypeer = ssl.verifypeer)) ){
-    warning( sprintf("%s does not exist.",url) )
-    next
+    warning( sprintf("%s does not exist, returning NULL.",url) )
+    return(NULL)
   }
   
   if(missing(fileName)) {

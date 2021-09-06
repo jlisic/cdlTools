@@ -6,7 +6,7 @@
 #'  a state name.
 #'@param year A numerical vector. A set of years of CDL data to download.
 #'@param alternativeUrl An optional string containing an alternative url.
-#'@param location An optional string containing a folder to store the file.
+#'@param location An optional string containing a folder to store the file.  If no folder is given, the R temporary directory will be used.
 #'@param https An optional boolean to turn on and off https, default is on.
 #'@param ssl.verifypeer An optional boolean to turn on and off ssl verfication, default is on.
 #'@return A list of CDL raster objects of interested county for a set of years.
@@ -27,7 +27,7 @@
 #' @importFrom httr http_error 
 #' @importFrom httr config GET write_disk
 #'@export
-getCDL <- function(x,year,alternativeUrl,location,https=TRUE, ssl.verifypeer = TRUE){
+getCDL <- function(x,year,alternativeUrl,location=tempdir(),https=TRUE, ssl.verifypeer = TRUE){
 
   cdl.list <- list()
   names.array <- c()

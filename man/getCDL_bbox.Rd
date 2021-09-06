@@ -36,11 +36,11 @@ getCDL_bbox(
 A raster object containing the contents of a bounding box.
 }
 \description{
-\code{getCDL_bbox} retrieves a CDL raster object within a bounding box for a given year.
+\code{getCDL_bbox} retrieves a CDL raster object within a bounding box for a set of years.
 }
 \examples{
 \dontrun{
-# Get data for California, 2013 and 2015
+# Get data for California in 2020
 bbox <- c(130783,2203171,153923,2217961)
 resx <- 30 
 resy <- 30 
