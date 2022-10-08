@@ -21,7 +21,7 @@
 #'getCDL(c("CA","OR","WA"),2013:2016)
 #'}
 #' @author Jonathan Lisic, \email{jlisic@@gmail.com}
-#' @author Joseph Stachelek, \email{stachel2@@msu.edu}
+#' @author Jemma Stachelek, \email{stachel2@@msu.edu}
 #' @importFrom utils download.file unzip
 #' @importFrom raster raster
 #' @importFrom httr http_error 

@@ -22,7 +22,7 @@
 #'getCDL_bbox(year,bbox,res=c(resx,resy),crs=crs)
 #'}
 #' @author Jonathan Lisic, \email{jlisic@@gmail.com}
-#' @author Joseph Stachelek, \email{stachel2@@msu.edu}
+#' @author Jemma Stachelek, \email{stachel2@@msu.edu}
 #' @importFrom utils download.file unzip
 #' @importFrom raster raster
 #' @importFrom httr http_error 

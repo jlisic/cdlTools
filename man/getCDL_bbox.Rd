@@ -52,5 +52,5 @@ getCDL_bbox(year,bbox,res=c(resx,resy),crs=crs)
 \author{
 Jonathan Lisic, \email{jlisic@gmail.com}
 
-Joseph Stachelek, \email{stachel2@msu.edu}
+Jemma Stachelek, \email{stachel2@msu.edu}
 }

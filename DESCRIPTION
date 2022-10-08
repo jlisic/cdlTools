@@ -5,7 +5,7 @@ Date: 2021-09-06
 Authors@R: c(
     person("Jonathan", "Lisic", email = "jlisic@gmail.com", role = "cre"),
     person("Lu", "Chen", role = "aut"),
-    person("Joseph","Stachelek", email = "stachel2@msu.edu", role="ctb")
+    person("Jemma","Stachelek", email = "stachel2@msu.edu", role="ctb")
     )
 Maintainer: Jonathan Lisic <jlisic@gmail.com>
 URL: https://www.github.com/jlisic/cdlTools
@@ -20,4 +20,4 @@ Imports:
     raster,
     utils,
     httr
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2

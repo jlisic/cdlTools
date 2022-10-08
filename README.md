@@ -10,7 +10,7 @@ Date: 2021-02-24
 Author: Lu Chen and  Jonathan Lisic
 
 Contributors:
-  Joseph Stachelek
+  Jemma Stachelek
 
 Maintainer: Jonathan Lisic <jlisic@gmail.com>
 
