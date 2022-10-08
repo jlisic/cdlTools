@@ -164,6 +164,7 @@ pip-log.txt
 ## Vim
 *.swo
 ## SO 
+*.o
 *.so
 *.dll
 *.dylib
