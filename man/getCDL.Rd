@@ -10,7 +10,8 @@ getCDL(
   alternativeUrl,
   location = tempdir(),
   https = TRUE,
-  ssl.verifypeer = TRUE
+  ssl.verifypeer = TRUE,
+  returnType = "raster"
 )
 }
 \arguments{
@@ -26,6 +27,8 @@ a state name.}
 \item{https}{An optional boolean to turn on and off https, default is on.}
 
 \item{ssl.verifypeer}{An optional boolean to turn on and off ssl verfication, default is on.}
+
+\item{returnType}{An optional parameter to select to return either 'raster' or 'terra' based raster files.}
 }
 \value{
 A list of CDL raster objects of interested county for a set of years.

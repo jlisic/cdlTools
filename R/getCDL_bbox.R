@@ -10,6 +10,7 @@
 #'@param alternativeUrl An optional string containing an alternative url.
 #'@param https An optional boolean to turn on and off https, default is on.
 #'@param ssl.verifypeer An optional boolean to turn on and off ssl verfication, default is on.
+#'@param returnType An optional parameter to select to return either 'raster' or 'terra' based raster files.
 #'@return A raster object containing the contents of a bounding box.
 #'@examples
 #'\dontrun{
@@ -25,13 +26,20 @@
 #' @author Jemma Stachelek, \email{stachel2@@msu.edu}
 #' @importFrom utils download.file unzip
 #' @importFrom raster raster
+#' @importFrom terra rast
 #' @importFrom httr http_error 
 #' @importFrom httr config GET write_disk
 #'@export
 
   
-getCDL_bbox <- function(year,bbox,fileName,res,crs='EPSG:5070',https=TRUE,alternativeUrl,ssl.verifypeer = TRUE){
+getCDL_bbox <- function(year,bbox,fileName,res,crs='EPSG:5070',https=TRUE,alternativeUrl,ssl.verifypeer = TRUE, returnType = 'raster'){
 
+  if( returnType == 'raster') {
+    raster_read = raster::raster
+  } else {
+    raster_read = terra::rast
+  }
+  
   # create cropscape URL 
   if(missing(alternativeUrl)) {
     if(https) {
@@ -57,5 +65,5 @@ getCDL_bbox <- function(year,bbox,fileName,res,crs='EPSG:5070',https=TRUE,altern
           httr::write_disk(fileName, overwrite = TRUE), 
           config = httr::config(ssl_verifypeer = ssl.verifypeer), httr::progress())
      
-  return(raster::raster(fileName)) 
+  return(raster_read(fileName)) 
 }

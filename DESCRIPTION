@@ -18,6 +18,9 @@ License: Unlimited
 LazyData: true
 Imports:
     raster,
+    terra,
+    stringr,
+    rvest,
     utils,
     httr
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.3

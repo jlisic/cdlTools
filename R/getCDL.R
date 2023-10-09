@@ -9,6 +9,7 @@
 #'@param location An optional string containing a folder to store the file.  If no folder is given, the R temporary directory will be used.
 #'@param https An optional boolean to turn on and off https, default is on.
 #'@param ssl.verifypeer An optional boolean to turn on and off ssl verfication, default is on.
+#'@param returnType An optional parameter to select to return either 'raster' or 'terra' based raster files.
 #'@return A list of CDL raster objects of interested county for a set of years.
 #'@examples
 #'\dontrun{
@@ -24,11 +25,18 @@
 #' @author Jemma Stachelek, \email{stachel2@@msu.edu}
 #' @importFrom utils download.file unzip
 #' @importFrom raster raster
+#' @importFrom terra rast
 #' @importFrom httr http_error 
 #' @importFrom httr config GET write_disk
 #'@export
-getCDL <- function(x,year,alternativeUrl,location=tempdir(),https=TRUE, ssl.verifypeer = TRUE){
+getCDL <- function(x,year,alternativeUrl,location=tempdir(),https=TRUE, ssl.verifypeer = TRUE, returnType = 'raster'){
 
+  if( returnType == 'raster') {
+    raster_read = raster::raster
+  } else {
+    raster_read = terra::rast
+  }
+  
   cdl.list <- list()
   names.array <- c()
  
@@ -43,7 +51,7 @@ getCDL <- function(x,year,alternativeUrl,location=tempdir(),https=TRUE, ssl.veri
                           sprintf("CDL_%d_%02d.tif", 
                                   year, x[i]), sep = "/")
       if(file.exists(out_target)){
-        target   <- raster::raster(out_target)
+        target   <- raster_read(out_target)
         cdl.list <- append(cdl.list, target) 
         next
       }
@@ -80,7 +88,7 @@ getCDL <- function(x,year,alternativeUrl,location=tempdir(),https=TRUE, ssl.veri
       } else {
         utils::download.file(url,destfile=paste(location,sprintf("CDL_%d_%02d.tif",year,x[i]),sep="/"),mode="wb", method = "curl")
       }
-      target <- raster::raster(paste(location,sprintf("CDL_%d_%02d.tif",year,x[i]),sep="/")) 
+      target <- raster_read(paste(location,sprintf("CDL_%d_%02d.tif",year,x[i]),sep="/")) 
       names.array <- append(names.array, paste0( fips(x[i],to="Abbreviation"),year))
       cdl.list <- append(cdl.list,target)
     }

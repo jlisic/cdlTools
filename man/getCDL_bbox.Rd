@@ -12,7 +12,8 @@ getCDL_bbox(
   crs = "EPSG:5070",
   https = TRUE,
   alternativeUrl,
-  ssl.verifypeer = TRUE
+  ssl.verifypeer = TRUE,
+  returnType = "raster"
 )
 }
 \arguments{
@@ -31,6 +32,8 @@ getCDL_bbox(
 \item{alternativeUrl}{An optional string containing an alternative url.}
 
 \item{ssl.verifypeer}{An optional boolean to turn on and off ssl verfication, default is on.}
+
+\item{returnType}{An optional parameter to select to return either 'raster' or 'terra' based raster files.}
 }
 \value{
 A raster object containing the contents of a bounding box.

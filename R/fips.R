@@ -1,10 +1,12 @@
 #'FIPS code conversion function.
 #'
-#'\code{fips} converts U.S. state names and abbreviations to and from FIPS codes.
+#'\code{fips} converts U.S. state and county names and abbreviations to and from FIPS codes.
 #'
 #'The Federal Information Processing Standard (FIPS) provides a set of standard numeric 
-#'codes for refering to U.S. states.  This function converts between FIPS codes, state two 
+#'codes for referring to U.S. states.  This function converts between FIPS codes, state two 
 #'letter abbreviations, and full state names.
+#'
+#'County abbreviations are not supported.  
 #'
 #' @param x A vector, data frame or matrix of character strings or numeric FIPS codes. Character input can be the two-letter 
 #'  postal abbreviation, the full name of a state, or a FIPS code in character format. 
@@ -19,11 +21,15 @@
 #' fips('northcarolina', to='Abbreviation')
 #' fips('North Carolina')
 #' fips(44,to='Name')
+#' fips("0112",to='Name')
 #' @author Jonathan Lisic, \email{jlisic@@gmail.com}
 #' @importFrom utils data download.file
 #' @export
 
 fips <- function( x , to='FIPS') {
+    
+  # default for county
+  x_county = NA
 
   # handle the case of 0 length
   if(length(x) == 0 ) return(NA)
@@ -47,10 +53,12 @@ fips <- function( x , to='FIPS') {
     if( grepl("[0-9]",x[1]) ) {
       # if the two letters are actually numbers we convert to numeric
       # and return the abbreviation
-      if(as.numeric(x) %in% cdlTools::census2010FIPS$State.ANSI) {
+      if( as.numeric(x) %in% cdlTools::census2010FIPS$State.ANSI ) {
         return(as.numeric(x)) 
+      # can't handle, return NA
       } else return(NA)
     }
+    
     
     # if it is a full state name convert to  
     if( x %in% sub(" ","",toupper(as.character(cdlTools::stateNames$STATENAME)))) {
@@ -93,16 +101,33 @@ fips <- function( x , to='FIPS') {
     return(NA)
 
   }
-  
+ 
+  # handle conversion to name 
   if( toupper(to) == 'NAME') {
-
+    
     # check if x contains numbers 
     if( grepl("[0-9]",x[1]) ) {
+       
+      if( nchar(x) == 5 ) {
+        x_county = substring(x,3,5)
+        x = substring(x,1,2)
+       
+        # handle county index
+        county_index = which( 
+          (as.numeric(x) == cdlTools::census2010FIPS$State.ANSI) &
+          (as.numeric(x_county) == cdlTools::census2010FIPS$County.ANSI))
+        # return if no county found 
+        if( length(county_index) == 0 ) return(NA) 
+        
+        # county index found
+        x_county = as.character(cdlTools::census2010FIPS$County.Name[county_index][1])
+      }
+      
       # if the two letters are actually numbers we convert to numeric
       # and return the abbreviation
       if(as.numeric(x) %in% cdlTools::census2010FIPS$State.ANSI) {
          x <-  as.character( cdlTools::census2010FIPS[as.numeric(x) == cdlTools::census2010FIPS$State.ANSI, 'State'] )[1] 
-      }
+      } 
     }
     
     x <- toupper(x)
@@ -113,11 +138,20 @@ fips <- function( x , to='FIPS') {
     }
   
     # abbreviation to full state 
-    return( as.character( cdlTools::stateNames[x == toupper(as.character(cdlTools::stateNames$STATE)),'STATENAME'][1]) )
-
+    if ( !is.na(x_county) ) {
+      return( paste0(
+        # get state name
+        c(as.character( cdlTools::stateNames[x == toupper(as.character(cdlTools::stateNames$STATE)),'STATENAME'][1]),
+        # get county name
+        x_county), 
+        # add in split
+        collapse=" : "))
+      
+    } else {
+      return( as.character( cdlTools::stateNames[x == toupper(as.character(cdlTools::stateNames$STATE)),'STATENAME'][1]) )
+    }
   }
- 
   return(NA) 
-  
 }
+
 

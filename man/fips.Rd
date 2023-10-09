@@ -20,18 +20,21 @@ The output type specified by the "to" argument.  If no match can be made, the
  program returns NA.
 }
 \description{
-\code{fips} converts U.S. state names and abbreviations to and from FIPS codes.
+\code{fips} converts U.S. state and county names and abbreviations to and from FIPS codes.
 }
 \details{
 The Federal Information Processing Standard (FIPS) provides a set of standard numeric 
-codes for refering to U.S. states.  This function converts between FIPS codes, state two 
+codes for referring to U.S. states.  This function converts between FIPS codes, state two 
 letter abbreviations, and full state names.
+
+County abbreviations are not supported.
 }
 \examples{
 fips("ia")
 fips('northcarolina', to='Abbreviation')
 fips('North Carolina')
 fips(44,to='Name')
+fips("0112",to='Name')
 }
 \author{
 Jonathan Lisic, \email{jlisic@gmail.com}
