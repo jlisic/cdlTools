@@ -31,7 +31,7 @@ a state name.}
 \item{returnType}{An optional parameter to select to return either 'raster' or 'terra' based raster files.}
 }
 \value{
-A list of CDL raster objects of interested county for a set of years.
+A list of CDL raster objects of interested county for a set of years.  Note that this is a generic list allowing for rasters with different extents and resolutions.
 }
 \description{
 \code{getCDL} retrieves CDL state raster objects for a set of years.
@@ -41,8 +41,8 @@ A list of CDL raster objects of interested county for a set of years.
 # Get data for California, 2013 and 2015
 # by FIPS
 getCDL(6,c(2013,2015))
-# Get data for California, 2013 and 2015
-getCDL("California",c(2013,2015))
+# Get data for California, 2013 and 2015 with Terra
+getCDL("California",c(2013,2015), returnType='terra')
 # Get all the west coast from 2009 to 2016
 getCDL(c("CA","OR","WA"),2013:2016)
 }

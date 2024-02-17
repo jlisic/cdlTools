@@ -5,7 +5,7 @@
 \alias{stateNames}
 \title{U.S. Census 2010 State FIPS Data}
 \format{
-An object of class \code{data.frame} with 54 rows and 3 columns.
+An object of class \code{data.frame} with 55 rows and 3 columns.
 }
 \source{
 \url{http://www2.census.gov/geo/docs/reference/codes/files/national_county.txt}

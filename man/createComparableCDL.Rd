@@ -4,7 +4,13 @@
 \alias{createComparableCDL}
 \title{Create comparable raster images}
 \usage{
-createComparableCDL(rasterList, filenames, baseIndex, progress = "")
+createComparableCDL(
+  rasterList,
+  filenames,
+  baseIndex = 1,
+  progress = "",
+  threads = FALSE
+)
 }
 \arguments{
 \item{rasterList}{A list of raster images.}
@@ -13,10 +19,13 @@ createComparableCDL(rasterList, filenames, baseIndex, progress = "")
 if \code{rasterList} is not provided.}
 
 \item{baseIndex}{The index of the raster list element that all other elements will 
-match with respect to resolution, projection and extent.}
+match with respect to resolution, projection and extent (default = 1).}
 
 \item{progress}{A string for the raster progress bar type, default "" is none, 
-"text" provides text output, "window" provides a gui window if available.}
+"text" provides text output, "window" provides a gui window if available.  Not 
+available for terra.}
+
+\item{threads}{(terra only) passes the thread parameter to Terra (default = FALSE).}
 }
 \value{
 A list of raster images matching in extent, resolution, and projection.
@@ -24,15 +33,22 @@ A list of raster images matching in extent, resolution, and projection.
 \description{
 \code{createComparableCDL} uses a base index within a raster list, and sets all other
 raster images within the list to the same resolution, projection, and extent.  The 
-raster function resample is used to tranform raster images, therefore this 
+raster function resample is used to transform raster images, therefore this 
 function may be quite slow without tuning.
 }
 \examples{
 \dontrun{
 # download multiple years of Iowa Data
+
+# for raster
 r <- getCDL('iowa',c(2006,2010))
 # resample based on the 2006
 r2 <- createComparableCDL(r,baseIndex=1)
+
+# for terra (note it will just reload what was already downloaded)
+r_terra <- getCDL('iowa',c(2006,2010), returnType = 'terra') 
+# resample based on the 2006
+r_terra2 <- createComparableCDL(r_terra,baseIndex=1)
 }
 }
 \author{

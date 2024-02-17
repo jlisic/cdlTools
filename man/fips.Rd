@@ -27,14 +27,14 @@ The Federal Information Processing Standard (FIPS) provides a set of standard nu
 codes for referring to U.S. states.  This function converts between FIPS codes, state two 
 letter abbreviations, and full state names.
 
-County abbreviations are not supported.
+County abbreviations are supported for FIPS to name conversion only.
 }
 \examples{
 fips("ia")
 fips('northcarolina', to='Abbreviation')
 fips('North Carolina')
 fips(44,to='Name')
-fips("0112",to='Name')
+fips("01001",to='Name')
 }
 \author{
 Jonathan Lisic, \email{jlisic@gmail.com}

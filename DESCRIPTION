@@ -1,21 +1,24 @@
 Package: cdlTools
 Title: Tools to Download and Work with USDA Cropscape Data
-Version: 1.00
-Date: 2024-02-10
+Version: 1.12
+Date: 2024-02-17
 Authors@R: c(
     person("Jonathan", "Lisic", email = "jlisic@gmail.com", role = "cre"),
     person("Lu", "Chen", role = "aut"),
     person("Jemma","Stachelek", email = "stachel2@msu.edu", role="ctb")
     )
 Maintainer: Jonathan Lisic <jlisic@gmail.com>
-URL: https://www.github.com/jlisic/cdlTools
-BugReports: https://www.github.com/jlisic/cdlTools/issues
+URL: https://github.com/jlisic/cdlTools
+BugReports: https://github.com/jlisic/cdlTools/issues
 Description: Downloads USDA National Agricultural Statistics Service (NASS) 
     cropscape data for a specified state. Utilities for fips, abbreviation, 
     and name conversion are also provided. Full functionality requires an 
     internet connection, but data sets can be cached for later off-line use.
 License: Unlimited
 LazyData: true
+Encoding: UTF-8
+Depends:
+    R (>= 3.5.0)
 Imports:
     raster,
     terra,

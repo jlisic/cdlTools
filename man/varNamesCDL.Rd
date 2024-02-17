@@ -5,7 +5,7 @@
 \alias{varNamesCDL}
 \title{Enumerated CDL classes}
 \format{
-An object of class \code{character} of length 278.
+An object of class \code{character} of length 282.
 }
 \source{
 \url{https://www.nass.usda.gov/Research_and_Science/Cropland/metadata/meta.php}

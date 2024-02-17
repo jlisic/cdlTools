@@ -28,9 +28,11 @@ Cropscape provides classification and crop class metadata on the Cropland Data L
 This function fetches this data through scraping cropscape html.
 }
 \examples{
+\dontrun{
 metadata("ia", 2007)
 metadata('North Carolina',2008)
 metadata(44,2017)
+}
 }
 \author{
 Jonathan Lisic, \email{jlisic@gmail.com}

@@ -3,9 +3,9 @@
 
 Title: Tools to Download and Work with USDA Cropscape Data
 
-Version: 0.16
+Version: 1.12 
 
-Date: 2021-02-24
+Date: 2024-02-17
 
 Author: Lu Chen and  Jonathan Lisic
 
@@ -20,12 +20,22 @@ License: Unlimited
 
 LazyData: true
 
+Depends:
+
+    R (>= 3.5.0)
+    
 Imports:
 
-RCurl,
-
-raster,
-
-utils
-
-RoxygenNote: 5.0.1
+    raster,
+    
+    terra,
+    
+    stringr,
+    
+    rvest,
+    
+    utils,
+    
+    httr
+    
+RoxygenNote: 7.2.3

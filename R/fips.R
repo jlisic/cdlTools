@@ -21,8 +21,6 @@
 #' fips('northcarolina', to='Abbreviation')
 #' fips('North Carolina')
 #' fips(44,to='Name')
-#' fips("53035",to='Name')
-#' fips("01111",to='Name')
 #' fips("01001",to='Name')
 #' @author Jonathan Lisic, \email{jlisic@@gmail.com}
 #' @importFrom utils data download.file

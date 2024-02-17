@@ -13,9 +13,11 @@
 #'  program returns NA.  The metadata is returned as a list with two elements, overall and class 
 #'  specific metrics, each in dataframes.
 #' @examples
+#' \dontrun{
 #' metadata("ia", 2007)
 #' metadata('North Carolina',2008)
 #' metadata(44,2017)
+#' }
 #' @author Jonathan Lisic, \email{jlisic@@gmail.com}
 #' @importFrom httr config 
 #' @importFrom httr http_error 
