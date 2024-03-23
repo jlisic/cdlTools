@@ -27,7 +27,7 @@ getCDL_bbox(
 
 \item{crs}{An optional string containing the coordinate reference system, default is EPSG:5070 (Albers is EPSG:5070).}
 
-\item{https}{An optional boolean to turn on and off https, default is on.}
+\item{https}{Legacy https, all traffic uses https, if you need http provide alternative url.}
 
 \item{alternativeUrl}{An optional string containing an alternative url.}
 

@@ -11,7 +11,7 @@ metadata(state, year, https = TRUE, ssl.verifypeer = TRUE)
 
 \item{year}{A numeric year.}
 
-\item{https}{An optional boolean to turn on and off https, default is on.}
+\item{https}{Legacy https, all traffic uses https, if you need http provide alternative url.}
 
 \item{ssl.verifypeer}{An optional boolean to turn on and off ssl verfication, default is on.}
 }

@@ -8,7 +8,7 @@
 An object of class \code{data.frame} with 55 rows and 3 columns.
 }
 \source{
-\url{http://www2.census.gov/geo/docs/reference/codes/files/national_county.txt}
+\url{https://www2.census.gov/geo/docs/reference/codes/files/national_county.txt}
 }
 \usage{
 stateNames

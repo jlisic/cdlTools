@@ -11,7 +11,7 @@
 #' \item{County.Name}{County Name}
 #' \item{ANSI.Cl}{FIPS class code}
 #' }
-#' @source \url{http://www2.census.gov/geo/docs/reference/codes/files/national_county.txt}
+#' @source \url{https://www2.census.gov/geo/docs/reference/codes/files/national_county.txt}
 "census2010FIPS"
 
 #'U.S. Census 2010 State FIPS Data
@@ -23,7 +23,7 @@
 #' \item{STATENAME}{State name}
 #' \item{STATEFP}{State FIPS code}
 #' }
-#' @source \url{http://www2.census.gov/geo/docs/reference/codes/files/national_county.txt}
+#' @source \url{https://www2.census.gov/geo/docs/reference/codes/files/national_county.txt}
 "stateNames"
 
 #'CDL corn classes

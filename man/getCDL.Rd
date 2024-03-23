@@ -24,7 +24,7 @@ a state name.}
 
 \item{location}{An optional string containing a folder to store the file.  If no folder is given, the R temporary directory will be used.}
 
-\item{https}{An optional boolean to turn on and off https, default is on.}
+\item{https}{Legacy https flag, all traffic uses https, if you need http provide alternative url.}
 
 \item{ssl.verifypeer}{An optional boolean to turn on and off ssl verfication, default is on.}
 

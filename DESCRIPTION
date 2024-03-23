@@ -1,7 +1,7 @@
 Package: cdlTools
 Title: Tools to Download and Work with USDA Cropscape Data
-Version: 1.12
-Date: 2024-02-17
+Version: 1.13
+Date: 2024-03-23
 Authors@R: c(
     person("Jonathan", "Lisic", email = "jlisic@gmail.com", role = "cre"),
     person("Lu", "Chen", role = "aut"),
@@ -17,13 +17,11 @@ Description: Downloads USDA National Agricultural Statistics Service (NASS)
 License: Unlimited
 LazyData: true
 Encoding: UTF-8
-Depends:
-    R (>= 3.5.0)
-Imports:
-    raster,
-    terra,
-    stringr,
-    rvest,
-    utils,
-    httr
+Depends: R (>= 3.5.0)
+Imports: raster, terra, stringr, rvest, utils, httr
 RoxygenNote: 7.2.3
+NeedsCompilation: yes
+Packaged: 2024-02-17 18:07:39 UTC; jonathanlisic
+Author: Jonathan Lisic [cre],
+  Lu Chen [aut],
+  Jemma Stachelek [ctb]

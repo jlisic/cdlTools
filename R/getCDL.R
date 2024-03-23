@@ -7,7 +7,7 @@
 #'@param year A numerical vector. A set of years of CDL data to download.
 #'@param alternativeUrl An optional string containing an alternative url.
 #'@param location An optional string containing a folder to store the file.  If no folder is given, the R temporary directory will be used.
-#'@param https An optional boolean to turn on and off https, default is on.
+#'@param https Legacy https flag, all traffic uses https, if you need http provide alternative url.
 #'@param ssl.verifypeer An optional boolean to turn on and off ssl verfication, default is on.
 #'@param returnType An optional parameter to select to return either 'raster' or 'terra' based raster files.
 #'@return A list of CDL raster objects of interested county for a set of years.  Note that this is a generic list allowing for rasters with different extents and resolutions. 
@@ -64,7 +64,7 @@ getCDL <- function(x,year,alternativeUrl,location=tempdir(),https=TRUE, ssl.veri
           if(https) {
             url <- sprintf("https://nassgeodata.gmu.edu/cdlservicedata/nass_data_cache/byfips/CDL_%d_%02d.zip",cdl_year,x[i]) 
           } else {
-            url <- sprintf("http://nassgeodata.gmu.edu/cdlservicedata/nass_data_cache/byfips/CDL_%d_%02d.zip",cdl_year,x[i]) 
+            url <- sprintf("https://nassgeodata.gmu.edu/cdlservicedata/nass_data_cache/byfips/CDL_%d_%02d.zip",cdl_year,x[i]) 
           }
       } else {
         url <- paste(alternativeUrl,sprintf("CDL_%d_%02d.tif",cdl_year,x[i]),sep="/")

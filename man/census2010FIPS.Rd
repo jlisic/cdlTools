@@ -15,7 +15,7 @@ A data frame with 3235 rows and 5 variables.
 }
 }
 \source{
-\url{http://www2.census.gov/geo/docs/reference/codes/files/national_county.txt}
+\url{https://www2.census.gov/geo/docs/reference/codes/files/national_county.txt}
 }
 \usage{
 census2010FIPS

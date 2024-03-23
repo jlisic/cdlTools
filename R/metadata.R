@@ -7,7 +7,7 @@
 #'
 #' @param state A numeric fips code, a state's two letter abbreviation, or a state name.
 #' @param year A numeric year.
-#' @param https An optional boolean to turn on and off https, default is on.
+#' @param https Legacy https, all traffic uses https, if you need http provide alternative url.
 #' @param ssl.verifypeer An optional boolean to turn on and off ssl verfication, default is on.
 #' @return The metadata for the state identified by the state argument.  If no match can be made, the 
 #'  program returns NA.  The metadata is returned as a list with two elements, overall and class 
@@ -44,7 +44,7 @@ metadata  <- function( state , year,https=TRUE, ssl.verifypeer = TRUE){
   if(https) {
     url <- sprintf("https://www.nass.usda.gov/Research_and_Science/Cropland/metadata/metadata_%s%02d.htm", tolower(cdlTools::fips(state, to="abbreviation")),year %% 100)
   } else {
-    url <- sprintf("http://www.nass.usda.gov/Research_and_Science/Cropland/metadata/metadata_%s%02d.htm", tolower(cdlTools::fips(state, to="abbreviation")),year %% 100)
+    url <- sprintf("https://www.nass.usda.gov/Research_and_Science/Cropland/metadata/metadata_%s%02d.htm", tolower(cdlTools::fips(state, to="abbreviation")),year %% 100)
   }
 
   # check if URL exists

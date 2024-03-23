@@ -8,7 +8,7 @@
 #'@param res An optional array of length two defining the pixel resolution in meters, default is 30m.
 #'@param crs An optional string containing the coordinate reference system, default is EPSG:5070 (Albers is EPSG:5070).
 #'@param alternativeUrl An optional string containing an alternative url.
-#'@param https An optional boolean to turn on and off https, default is on.
+#'@param https Legacy https, all traffic uses https, if you need http provide alternative url.
 #'@param ssl.verifypeer An optional boolean to turn on and off ssl verfication, default is on.
 #'@param returnType An optional parameter to select to return either 'raster' or 'terra' based raster files.
 #'@return A raster object containing the contents of a bounding box.
@@ -45,7 +45,7 @@ getCDL_bbox <- function(year,bbox,fileName,res,crs='EPSG:5070',https=TRUE,altern
     if(https) {
       url <- sprintf("https://nassgeodata.gmu.edu/CropScapeService/wms_cdlall.cgi?service=wcs&version=1.0.0&request=getcoverage&coverage=cdl_%d&crs=%s&bbox=%d,%d,%d,%d&resx=%d&resy=%d&format=gtiff",year,crs,bbox[1],bbox[2],bbox[3],bbox[4],res[1],res[2])
     } else {
-      url <- sprintf("http://nassgeodata.gmu.edu/CropScapeService/wms_cdlall.cgi?service=wcs&version=1.0.0&request=getcoverage&coverage=cdl_%d&crs=%s&bbox=%d,%d,%d,%d&resx=%d&resy=%d&format=gtiff",year,crs,bbox[1],bbox[2],bbox[3],bbox[4],res[1],res[2])
+      url <- sprintf("https://nassgeodata.gmu.edu/CropScapeService/wms_cdlall.cgi?service=wcs&version=1.0.0&request=getcoverage&coverage=cdl_%d&crs=%s&bbox=%d,%d,%d,%d&resx=%d&resy=%d&format=gtiff",year,crs,bbox[1],bbox[2],bbox[3],bbox[4],res[1],res[2])
     }
   } else {
     url <- sprintf("%s/CropScapeService/wms_cdlall.cgi?service=wcs&version=1.0.0&request=getcoverage&coverage=cdl_%d&crs=%s&bbox=%d,%d,%d,%d&resx=%d&resy=%d&format=gtiff",alternativeUrl,year,crs,bbox[1],bbox[2],bbox[3],bbox[4],res[1],res[2])
