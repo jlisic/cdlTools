@@ -4,7 +4,7 @@ citHeader("When citing cdlTools, please cite both the package and underlying dat
 bibentry(
    bibtype = "Manual",
    title = "National Agricultural Statistics Service Cropland Data Layer",
-   author = as.person( USDA-NASS [aut] ),
+   author = as.person( "USDA-NASS [aut]" ),
    year = "2024",
    note = "R package version 1.3-4",
    url = "https://nassgeodata.gmu.edu/CropScape/",
